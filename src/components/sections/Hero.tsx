@@ -67,6 +67,19 @@ export default function Hero() {
     };
   }, []);
 
+  // Auto-rotate: Mobile (3s) and Desktop (4s)
+  useEffect(() => {
+    if (!mounted) return;
+
+    const intervalTime = windowWidth < 640 ? 3000 : 4000;
+
+    const intervalId = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % projectsData.length);
+    }, intervalTime);
+
+    return () => clearInterval(intervalId);
+  }, [mounted, windowWidth, activeIndex]);
+
   const handleMouseEnterCard = (index: number) => {
     const now = Date.now();
     if (now - lastHoverTime.current >= 200) {
