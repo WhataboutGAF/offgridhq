@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: 'High-end design classes and tutorials for the modern creative.',
 };
 
+import CustomCursor from '@/components/layout/CustomCursor';
+import VisualEffects from '@/components/layout/VisualEffects';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,7 +22,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full selection:bg-accent selection:text-accent-foreground bg-background">
+      <body className="min-h-full selection:bg-accent selection:text-accent-foreground bg-background md:cursor-none">
+        <CustomCursor />
+        <VisualEffects />
         <div className="min-h-full w-full overflow-x-hidden relative">
           {children}
         </div>

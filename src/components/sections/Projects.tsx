@@ -97,22 +97,37 @@ _             <div className="px-6 pb-6 mt-auto">
         {/* Motivational Footer */}
         <div className="flex flex-col items-center justify-center gap-12 py-12 relative text-center">
           
-          <div className="space-y-10 w-full max-w-5xl">
-            <h2 className="text-2xl sm:text-4xl md:text-[3.25rem] font-black tracking-tighter leading-[1.15] text-foreground uppercase flex flex-col items-center gap-2">
-              <span className="flex items-center flex-wrap justify-center gap-x-3">
-                KEEP <span className="inline-block px-8 py-1 border-[3.5px] border-secondary rounded-full align-middle text-foreground">CREATING</span> UNTIL YOU
+          <div className="space-y-10 w-full max-w-5xl group/cta">
+            <h2 className="text-2xl sm:text-4xl md:text-[3.25rem] font-black tracking-tighter leading-[1.15] text-foreground uppercase flex flex-col items-center gap-4 md:gap-6 cursor-default">
+              <span className="flex items-center justify-center flex-wrap gap-x-3 md:gap-x-4">
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">KEEP</span>
+                
+                <span className="inline-block px-8 py-1 border-[3.5px] border-secondary rounded-full align-middle text-foreground transition-all duration-300 hover:-rotate-2 hover:scale-105 hover:-translate-y-2 hover:bg-secondary hover:text-secondary-foreground hover:shadow-[6px_6px_0_0_currentColor]">
+                  CREATING
+                </span>
+                
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">UNTIL</span>
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">YOU</span>
               </span>
-              <span className="flex items-center justify-center gap-4">
-                FIND YOUR OWN <span className="bg-primary text-primary-foreground px-5 py-1 inline-block">AUDIENCE.</span>
-                <div className="inline-flex shrink-0 animate-spin" style={{ animationDuration: '8s' }}>
+              
+              <span className="flex items-center justify-center flex-wrap gap-3 md:gap-4 mt-2">
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">FIND</span>
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">YOUR</span>
+                <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 hover:text-primary">OWN</span>
+                
+                <span className="bg-primary text-primary-foreground px-5 py-1 inline-block transition-all duration-300 shadow-[4px_4px_0_0_currentColor] hover:rotate-[3deg] hover:scale-105 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_currentColor]">
+                  AUDIENCE.
+                </span>
+                
+                <div className="inline-flex shrink-0 animate-spin group-hover/cta:scale-125 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" style={{ animationDuration: '8s' }}>
                   <AsteriskIcon className="w-12 h-12 md:w-20 md:h-20" />
                 </div>
               </span>
             </h2>
 
-            <div className="flex flex-col items-center gap-1 mt-4">
-              <p className="text-xl font-black text-foreground">OFFGRID HQ</p>
-              <p className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em]">DUCK AND BUCKET</p>
+            <div className="flex flex-col items-center gap-1 mt-6">
+              <p className="text-xl font-black text-foreground transition-transform duration-300 hover:scale-110 hover:-translate-y-1 cursor-default">OFFGRID HQ</p>
+              <p className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.4em] transition-transform duration-300 hover:translate-x-2 cursor-default">DUCK AND BUCKET</p>
             </div>
           </div>
         </div>

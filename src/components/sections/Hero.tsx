@@ -97,7 +97,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-8 pb-32 overflow-hidden bg-background">
+    <section className="relative pt-2 pb-32 overflow-hidden bg-background">
       <div className="max-w-[100vw] mx-auto px-6 md:px-12 relative z-10 w-full overflow-hidden">
         <div className="flex flex-col items-center mb-4 relative">
           
@@ -123,7 +123,7 @@ export default function Hero() {
             </svg>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-10 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-12 md:mt-24 cursor-default group/h1">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-6 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-6 md:mt-10 cursor-default group/h1">
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">LEVEL</span>{' '}
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">UP</span>{' '}
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">YOUR</span> <br />

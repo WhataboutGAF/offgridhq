@@ -103,3 +103,60 @@
 [data-theme='dark'] .card-shadow {
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
 }
+
+/* CRT / Scanline Effect (Grayscale Mode Only) */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+  background-size: 100% 3px, 3px 100%;
+}
+
+[data-theme='grayscale'] .crt-overlay {
+  opacity: 1;
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+  @apply opacity-[0.03] pointer-events-none fixed inset-0 z-[10000];
+}
+
+@keyframes flicker {
+  0% { opacity: 0.02761; }
+  5% { opacity: 0.04397; }
+  10% { opacity: 0.03345; }
+  15% { opacity: 0.04412; }
+  20% { opacity: 0.03651; }
+  25% { opacity: 0.01334; }
+  30% { opacity: 0.03433; }
+  35% { opacity: 0.04609; }
+  40% { opacity: 0.01483; }
+  45% { opacity: 0.03121; }
+  50% { opacity: 0.03845; }
+  55% { opacity: 0.01323; }
+  60% { opacity: 0.04231; }
+  65% { opacity: 0.03421; }
+  70% { opacity: 0.04456; }
+  75% { opacity: 0.01321; }
+  80% { opacity: 0.04321; }
+  85% { opacity: 0.0321; }
+  90% { opacity: 0.0441; }
+  95% { opacity: 0.0321; }
+  100% { opacity: 0.02761; }
+}
+
+[data-theme='grayscale'] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  filter: contrast(150%) brightness(1000%);
+  pointer-events: none;
+}

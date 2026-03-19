@@ -1,35 +1,24 @@
 "use client";
 
-import React from "react";
 import Navbar from "@/components/layout/Navbar";
-import { MessageSquare, ArrowRight, Mail } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { 
+  MessageSquare, 
+  ArrowUpRight, 
+  Mail, 
+  Twitter, 
+  Globe, 
+  Phone, 
+  Send,
+  MapPin,
+  ChevronRight,
+  ExternalLink
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const WHATSAPP_NUMBER = "9779803026271";
 const DIRECT_EMAIL = "offgridhqteam@gmail.com";
-
-const QUICK_MESSAGES = [
-  { 
-    label: "OPEN FOR WORK?", 
-    text: "Hi! Are you open for new work opportunities?",
-    icon: "💼"
-  },
-  { 
-    label: "COLLABORATION?", 
-    text: "Hey, I'd love to discuss a potential collaboration with OFFGRID HQ!",
-    icon: "🤝"
-  },
-  { 
-    label: "TRY NEW TOOLS?", 
-    text: "Hi, I have a tool I think you guys should try out.",
-    icon: "🛠️"
-  },
-  { 
-    label: "SPONSORSHIP?", 
-    text: "Hello! I'm interested in talking about sponsorship opportunities.",
-    icon: "🚀"
-  }
-];
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -42,88 +31,208 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function ContactPage() {
-  const handleWhatsAppRedirect = (text: string) => {
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
-  };
+const TelegramIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.88.03-.24.36-.49 1-.74 3.93-1.71 6.55-2.83 7.87-3.37 3.75-1.54 4.53-1.81 5.04-1.82.11 0 .36.03.52.16.14.11.18.26.19.37 0 .07.01.21 0 .33z"/>
+  </svg>
+);
 
+export default function ContactPage() {
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Offgrid Team!")}`;
   const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${DIRECT_EMAIL}`;
 
   return (
-    <main className="min-h-screen bg-background flex flex-col">
-      <Navbar />
+    <main className="min-h-screen bg-background relative overflow-x-hidden font-modern">
+      {/* Grid Pattern Background */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .grid-bg {
+          background-image: 
+            linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+        .dark .grid-bg {
+          background-image: 
+            linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+        }
+      `}} />
       
-      <div className="flex-grow flex flex-col items-center justify-center p-6 md:p-12 mb-16">
-        <div className="max-w-4xl w-full text-center space-y-16">
-          
-          {/* Main Hero Header */}
-          <div className="space-y-8 mt-12 md:mt-24">
-            <h1 className="text-5xl sm:text-6xl md:text-[7rem] font-black uppercase tracking-tighter leading-[0.9] text-foreground">
-              DON&apos;T BE A <br /> 
-              <span className="bg-[#FFD400] text-black px-6 py-2 inline-block mt-4 rounded-none border-[3px] border-black shadow-[6px_6px_0_0_#000]">STRANGER.</span>
-            </h1>
+      <div className="absolute inset-0 grid-bg pointer-events-none" />
+
+      <Navbar />
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 flex flex-col items-center">
+        
+        {/* Top Header Section */}
+        <div className="text-center mb-16 space-y-6 group/h1">
+          <h1 className="text-4xl md:text-7xl font-black uppercase tracking-tight text-foreground leading-[1.1] md:leading-none">
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">IN</span>
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">SEARCH</span>
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">OF</span> <br className="hidden md:block" />
             
-            {/* Urgent Status Line */}
-            <div className="flex items-center justify-center gap-3">
-              <span className="w-4 h-4 bg-[#00FFD1] border-2 border-black animate-pulse" />
-              <p className="text-black font-black text-[10px] md:text-sm uppercase tracking-[0.4em]">
-                Direct Message — We&apos;re Online
-              </p>
-            </div>
-          </div>
+            <span className="inline-block italic text-secondary transition-all duration-500 hover:scale-110 hover:skew-x-[-12deg] mr-3">THE NEXT BIG</span>
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">THING?</span> <br />
+            
+            <span className="inline-block transition-transform duration-[600ms] group-hover/h1:rotate-[-2deg] mr-4 hover:text-primary">CONTACT</span>
+            <span className="inline-block text-primary underline decoration-[8px] underline-offset-8 transition-transform duration-500 hover:scale-110 hover:rotate-3">US!</span>
+          </h1>
+          <p className="text-xs md:text-sm font-bold text-foreground/60 uppercase tracking-[0.3em] transition-all duration-500 group-hover/h1:tracking-[0.4em] group-hover/h1:text-foreground">
+            Drop a signal and we’ll sync with you shortly!
+          </p>
+        </div>
 
-          <div className="flex flex-col items-center gap-14">
-            {/* Primary CTA Button */}
-            <button 
-              onClick={() => handleWhatsAppRedirect("Hi! I'd like to chat.")}
-              className="group relative py-6 px-10 md:px-14 bg-[#7000FF] text-white font-black uppercase tracking-[0.3em] rounded-none border-[4px] border-black shadow-[8px_8px_0_0_#00FFD1] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#00FFD1] transition-all active:translate-x-2 active:translate-y-2 active:shadow-none flex items-center justify-center gap-6 w-full md:w-auto text-xl md:text-3xl"
-            >
-              <span>DIRECT MESSAGE</span>
-              <MessageSquare className="w-8 h-8 stroke-[3]" />
-            </button>
+        {/* Main Content Area: Form */}
+        <div className="relative w-full max-w-2xl mx-auto mb-32">
+          
+          {/* The Contact Form Box */}
+          <div className="w-full bg-[#4FA4D7] rounded-[2.5rem] p-8 md:p-14 border-[4px] border-foreground shadow-[16px_16px_0_0_currentColor] relative z-10 transition-all duration-500 hover:shadow-[24px_24px_0_0_currentColor] hover:-translate-x-2 hover:-translate-y-2 group/form cursor-default">
+            <h2 className="text-xl md:text-3xl font-black text-white mb-10 text-center uppercase tracking-tight drop-shadow-sm transition-transform duration-500 group-hover/form:scale-105">
+              MISSION INQUIRY FORM
+            </h2>
+            
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">YOUR ALIAS / NAME</label>
+                <input 
+                  type="text" 
+                  placeholder="How should we address you?"
+                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                />
+              </div>
 
-            {/* Quick Actions Grid */}
-            <div className="w-full max-w-3xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4">
-              {QUICK_MESSAGES.map((msg, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleWhatsAppRedirect(msg.text)}
-                  className="p-6 md:p-8 bg-white border-[3px] border-black rounded-none shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-between group"
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">COMMUNICATION FREQUENCY (PHONE)</label>
+                <input 
+                  type="text" 
+                  placeholder="+X (XXX) XXX XX XX"
+                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">DIGITAL UPLINK (EMAIL)</label>
+                <input 
+                  type="email" 
+                  placeholder="name@domain.com"
+                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">THE BROADCAST (MESSAGE)</label>
+                <textarea 
+                  placeholder="Detailed project requirements..."
+                  rows={4}
+                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor] resize-none"
+                />
+              </div>
+
+              <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p className="text-[9px] font-bold text-white/80 leading-tight max-w-[240px] uppercase">
+                  By pushing dispatch, you agree to our <span className="underline cursor-pointer">Protocol Agreement</span> & Privacy Node.
+                </p>
+                <button 
+                  className="bg-[#E97332] text-white px-10 py-4 rounded-2xl border-[3.5px] border-foreground font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:bg-[#ff8a4d] transition-all shadow-[6px_6px_0_0_currentColor] active:translate-y-1 active:shadow-none flex items-center gap-2 group"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl">{msg.icon}</span>
-                    <span className="text-sm md:text-base font-black uppercase tracking-widest text-black text-left">
-                      {msg.label}
-                    </span>
-                  </div>
-                  <ArrowRight className="w-6 h-6 stroke-[3] text-black transition-transform group-hover:translate-x-2 shrink-0" />
+                  DISPATCH <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-              ))}
-            </div>
-
-            {/* Direct Email Inclusion */}
-            <div className="pt-16 w-full flex flex-col items-center gap-6 border-t-[3px] border-black/10 mt-8">
-              <p className="text-xs md:text-sm font-black uppercase tracking-[0.4em] text-white bg-[#FF007F] px-4 py-2 border-[3px] border-black shadow-[4px_4px_0_0_#000]">Prefer Email?</p>
-              <a 
-                href={gmailUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 text-xl md:text-4xl font-black text-black hover:text-white hover:bg-black px-6 py-4 md:px-8 md:py-6 border-[3px] border-black shadow-[6px_6px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group w-full md:w-auto justify-center"
-              >
-                <Mail className="w-6 h-6 md:w-8 md:h-8 stroke-[3] group-hover:animate-bounce" />
-                <span className="truncate">{DIRECT_EMAIL}</span>
-              </a>
-            </div>
-
-            {/* Subdued Branding Footer */}
-            <div className="flex flex-col items-center gap-3 mt-12 bg-black text-white px-6 py-3 border-[3px] border-black">
-              <WhatsAppIcon className="w-6 h-6" />
-              <span className="text-[10px] font-black tracking-[0.3em] uppercase">WhatsApp Direct Connection</span>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
+
+        {/* Footer Navigation Section (Zine Style) */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 border-t-[3.5px] border-foreground pt-16 mt-8">
+          
+          {/* Column 1: Info (Functional Only) */}
+          <div className="space-y-6">
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">SECTION: ARCHIVE</div>
+            <div className="space-y-3">
+              <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">Our Mission</Link>
+              <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">The Lab Blog</Link>
+              <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">About Yunis</Link>
+            </div>
+          </div>
+
+          {/* Column 2: Contacts */}
+          <div className="space-y-8">
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest text-foreground select-none cursor-default opacity-80">SECTION: UPLINKS</div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <a href={gmailUrl} target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#E97332] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group">
+                <Mail className="w-8 h-8 group-hover:scale-110 transition-transform" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#4FA4D7] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
+                <Twitter className="w-8 h-8 group-hover:scale-110 transition-transform" />
+              </a>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#25D366] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all cursor-pointer group active:scale-95">
+                <WhatsAppIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
+              </a>
+              <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#0088cc] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
+                <TelegramIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 3: Location Map Graphic */}
+          <div className="space-y-6">
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">SECTION: COORDINATES</div>
+            
+            <a 
+              href="https://www.google.com/maps/search/St.+Petersburg,+FL" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block aspect-[4/3] bg-card rounded-[2rem] border-[3.5px] border-foreground shadow-[6px_6px_0_0_currentColor] overflow-hidden relative group transition-all hover:shadow-[12px_12px_0_0_currentColor] hover:-translate-y-2"
+            >
+              <div className="absolute inset-0 grid-bg opacity-30" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                <MapPin className="w-12 h-12 text-primary drop-shadow-[0_0_10px_rgba(0,0,0,0.1)] group-hover:scale-125 group-hover:-translate-y-2 transition-all duration-500 animate-bounce" />
+                <div className="mt-4 text-center">
+                  <p className="text-[10px] font-black uppercase tracking-widest">OFFGRID HQ MAIN</p>
+                  <p className="text-[8px] font-black text-foreground/40 uppercase tracking-tighter">DECENTRALIZED NEIGHBORHOOD 12</p>
+                </div>
+                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-[8px] font-black uppercase bg-foreground text-background px-3 py-1 rounded-full">
+                  OPEN IN MAPS <ExternalLink className="w-2 h-2" />
+                </div>
+              </div>
+              <div className="absolute bottom-4 right-4 flex gap-1.5 z-20">
+                 <div className="w-2 h-2 rounded-full bg-secondary animate-ping" />
+                 <div className="w-2 h-2 rounded-full bg-primary" />
+              </div>
+            </a>
+
+            <div className="flex flex-col gap-1 text-right">
+              <p className="text-[10px] font-black uppercase tracking-tight">St. Petersburg, FL (US Hub)</p>
+              <p className="text-[10px] font-black text-foreground/40 uppercase tracking-widest">Open for Signals: 09:00 — 18:00</p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(12deg); }
+          50% { transform: translateY(-20px) rotate(15deg); }
+        }
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px) rotate(-12deg); }
+          50% { transform: translateY(-15px) rotate(-10deg); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-slow {
+          animation: float-slow 8s ease-in-out infinite;
+        }
+      `}</style>
     </main>
   );
 }
