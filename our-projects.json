@@ -1,0 +1,26 @@
+[
+  {
+    "id": "tool-daddy",
+    "title": "TOOL\nDADDY",
+    "description": "Your essential toolkit for diverse creative and practical tasks.",
+    "seed": "tools",
+    "variant": "card-green",
+    "imageFile": "tool-daddy-preview.png"
+  },
+  {
+     "id": "NEXT-FACE",
+    "name": "Next \nFace",
+    "description": "Transform AI-generated text into natural, human-like writing.",
+    "seed": "content",
+    "variant": "green-solid",
+    "imageFile": "next-face-preview.png"
+  },
+  {
+   "id": "ghosty",
+    "name": "Ghosty",
+    "description": "A end to end encripted social media platform.where u can post ananomously",
+    "seed": "social",
+    "variant": "card-purple",
+    "imageFile": "ghosty-preview.png"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "Tool-daddy",
+    "name": "Tool-Daddy",
+    "description": "The New Standard for Digital Tools.",
+    "logoFile": "Tooldaddy.png",
+    "themeColor": "#FFD100",
+    "shadowColor": "#000000",
+    "projectUrl": "https://tool-daddy-v-5.vercel.app/"
+  },
+  {
+    "id": "social",
+    "name": "Social App",
+    "description": "Share your life updates with a vibrant and active community.",
+    "logoFile": "social-logo.png",
+    "themeColor": "#FF007F",
+    "shadowColor": "#2D00F7",
+    "projectUrl": "https://example.com/social"
+  },
+  {
+    "id": "NEXT-FACE",
+    "name": "Next-Face",
+    "description": "Transform AI-generated text into natural, human-like writing.",
+    "logoFile": "NextFace.png",
+    "themeColor": "#0066FF",
+    "shadowColor": "#FFD100",
+    "projectUrl": "https://example.com/nextface"
+  },
+  {
+    "id": "ghosty",
+    "name": "ghosty",
+    "description": "A end to end encripted social media platform.where u can post ananomously",
+    "logoFile": "ghosty.png",
+    "themeColor": "#00FFD1",
+    "shadowColor": "#7000FF",
+    "projectUrl": "https://ghosty-app.vercel.app/"
+  },
+  {
+    "id": "vasha",
+    "name": "Vasha",
+    "description": "A language learning platform.a great way to learn new dialects",
+    "logoFile": "vasha.png",
+    "themeColor": "#7000FF",
+    "shadowColor": "#00FFD1",
+    "projectUrl": "https://example.com/social2"
+  }
+]

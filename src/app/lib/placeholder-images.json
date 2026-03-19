@@ -1,0 +1,65 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-energy",
+      "description": "Decentralized energy grid illustration",
+      "imageUrl": "https://picsum.photos/seed/energy123/600/400",
+      "imageHint": "energy grid"
+    },
+    {
+      "id": "hero-agri",
+      "description": "AI agriculture optimization visualization",
+      "imageUrl": "https://picsum.photos/seed/agri456/600/400",
+      "imageHint": "smart farming"
+    },
+    {
+      "id": "hero-edu",
+      "description": "Remote education platform interface",
+      "imageUrl": "https://picsum.photos/seed/edu789/600/400",
+      "imageHint": "online education"
+    },
+    {
+      "id": "hero-water",
+      "description": "Sustainable water purification system",
+      "imageUrl": "https://picsum.photos/seed/water101/600/400",
+      "imageHint": "water filter"
+    },
+    {
+      "id": "hero-mesh",
+      "description": "Community mesh network diagram",
+      "imageUrl": "https://picsum.photos/seed/mesh202/600/400",
+      "imageHint": "network mesh"
+    },
+    {
+      "id": "project-energy-detail",
+      "description": "Detailed view of solar microgrid",
+      "imageUrl": "https://picsum.photos/seed/energy-detail/800/600",
+      "imageHint": "solar panel"
+    },
+    {
+      "id": "project-agri-detail",
+      "description": "Sensors in a sustainable farm",
+      "imageUrl": "https://picsum.photos/seed/agri-detail/800/600",
+      "imageHint": "farm sensor"
+    },
+    {
+      "id": "project-edu-detail",
+      "description": "Children using offline tablets for school",
+      "imageUrl": "https://picsum.photos/seed/edu-detail/800/600",
+      "imageHint": "tablet classroom"
+    },
+    {
+      "id": "hero-sewing-tin",
+      "description": "Sewing kit inside a butter cookie tin illustration",
+      "imageUrl": "https://picsum.photos/seed/sewing-tin/800/1200",
+      "imageHint": "sewing kit"
+    },
+    {
+      "id": "contact-telephone",
+      "description": "Telephone handset hanging by a cord",
+      "imageUrl": "https://picsum.photos/seed/phone-hang/800/1200",
+      "imageHint": "hanging telephone"
+    }
+  ]
+}
