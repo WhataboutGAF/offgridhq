@@ -14,6 +14,7 @@ import { getProjectsContextString } from '@/lib/projects-data';
 
 const AIProjectRecommendationInputSchema = z.object({
   userDescription: z.string().describe('A natural language description of the client\'s needs and interests.'),
+  availableProjects: z.string().optional().describe('A string containing the list of available projects.'),
 });
 export type AIProjectRecommendationInput = z.infer<typeof AIProjectRecommendationInputSchema>;
 

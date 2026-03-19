@@ -9,9 +9,9 @@ export function getSortedPostsData() {
     return [];
   }
   
-  const fileNames = fs.readdirSync(postsDirectory);
+  const fileNames = fs.readdirSync(postsDirectory).filter(file => file.toLowerCase().endsWith('.md'));
   const allPostsData = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '');
+    const slug = fileName.replace(/\.md$/i, '');
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
@@ -32,7 +32,11 @@ export function getSortedPostsData() {
 }
 
 export function getPostData(slug: string) {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  // Try .md and .MD
+  let fullPath = path.join(postsDirectory, `${slug}.md`);
+  if (!fs.existsSync(fullPath)) {
+    fullPath = path.join(postsDirectory, `${slug}.MD`);
+  }
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const matterResult = matter(fileContents);
 
