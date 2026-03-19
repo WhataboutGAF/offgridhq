@@ -5,6 +5,8 @@ import { ArrowUpRight, ArrowRight, Hammer, Users, MessageSquare, Smile, Sparkles
 import { cn } from "@/lib/utils";
 import projectsData from "../../../projects.json";
 
+import ProjectDrawer from "@/components/ui/ProjectDrawer";
+
 // Smart helper function to pick perfectly matching icons based on project keywords
 const getFallbackIcon = (name: string, isActive: boolean) => {
   const lower = name.toLowerCase();
@@ -21,6 +23,7 @@ const getFallbackIcon = (name: string, isActive: boolean) => {
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(2);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const asteriskRef = useRef<HTMLDivElement>(null);
   const lastHoverTime = useRef<number>(0);
@@ -170,6 +173,7 @@ export default function Hero() {
                 <div
                   key={`${project.id}-${index}`}
                   onMouseEnter={() => handleMouseEnterCard(index)}
+                  onClick={() => isActive && setSelectedProject({ ...project, variant: 'card-green', imageFile: project.logoFile })}
                   style={{
                     backgroundColor: project.themeColor,
                     transformOrigin: 'top center',
@@ -179,7 +183,7 @@ export default function Hero() {
                     ...getCardStyle(index),
                   }}
                   className={cn(
-                    "absolute left-1/2 top-0 group w-[18rem] md:w-[22rem] h-[24rem] md:h-[28rem] rounded-xl flex flex-col items-start justify-between p-6 md:p-8 select-none cursor-pointer border-[3px] border-black duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    "absolute left-1/2 top-0 group/card w-[18rem] md:w-[22rem] h-[24rem] md:h-[28rem] rounded-xl flex flex-col items-start justify-between p-6 md:p-8 select-none cursor-pointer border-[3px] border-black duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
                     isActive ? "opacity-100" : "opacity-100 grayscale-[0.3]" // Cards strictly opaque so outlines don't bleed through
                   )}
                 >
@@ -218,10 +222,13 @@ export default function Hero() {
                   </div>
 
                   {/* Bottom: Solid LAUNCH button block inside the card */}
-                  <a 
-                    href={project.projectUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button 
+                    onClick={(e) => {
+                      if(isActive) {
+                        e.stopPropagation();
+                        setSelectedProject({ ...project, variant: 'card-green', imageFile: project.logoFile });
+                      }
+                    }}
                     className={cn(
                       "w-full py-3 md:py-4 rounded-lg flex items-center justify-center gap-2 font-black text-sm tracking-widest uppercase transition-all mt-4 border-[3px] border-black active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-black hover:text-white bg-white text-black",
                       isActive ? "shadow-[4px_4px_0_0_#000000] pointer-events-auto" : "shadow-none opacity-50 pointer-events-none"
@@ -229,13 +236,25 @@ export default function Hero() {
                   >
                     LAUNCH
                     <ArrowUpRight className="w-5 h-5 stroke-[3]" />
-                  </a>
+                  </button>
+
+                  {/* View Specs Overlay for Hero Cards */}
+                  {isActive && (
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px] pointer-events-none z-[60] rounded-xl">
+                       <span className="bg-black text-white text-[9px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 border-white shadow-[4px_4px_0_0_#000] transform -rotate-2">DISPATCH_SPECS</span>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
       </div>
+
+      <ProjectDrawer 
+        project={selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </section>
   );
 }

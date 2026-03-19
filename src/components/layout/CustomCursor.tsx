@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
@@ -16,6 +16,10 @@ export default function CustomCursor() {
   const springConfig = { damping: 30, stiffness: 400, mass: 0.6 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
+
+  // Trailing springs for the shadow box
+  const trailX = useSpring(mouseX, { damping: 40, stiffness: 200 });
+  const trailY = useSpring(mouseY, { damping: 40, stiffness: 200 });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -52,10 +56,10 @@ export default function CustomCursor() {
     };
   }, [mouseX, mouseY, isVisible]);
 
-  if (isMobile) return null;
-
   return (
-    <>
+    <AnimatePresence>
+      {!isMobile && (
+        <>
       <motion.div
         className="fixed top-0 left-0 z-[10000] pointer-events-none hidden md:block"
         style={{
@@ -98,13 +102,15 @@ export default function CustomCursor() {
       <motion.div
         className="fixed top-0 left-0 w-12 h-12 border border-foreground/5 z-[9999] pointer-events-none hidden md:block"
         style={{
-          x: useSpring(mouseX, { damping: 40, stiffness: 200 }),
-          y: useSpring(mouseY, { damping: 40, stiffness: 200 }),
+          x: trailX,
+          y: trailY,
           translateX: "-50%",
           translateY: "-50%",
           scale: isHovering ? 2 : 1
         }}
       />
-    </>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
