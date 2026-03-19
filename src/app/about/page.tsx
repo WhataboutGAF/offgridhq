@@ -1,11 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 
 const WHATSAPP_NUMBER = "9779803026271";
 
 export default function AboutPage() {
+  const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(1200);
+
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = mounted && windowWidth < 768;
+
   const handleWhatsAppRedirect = (text: string) => {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
@@ -36,15 +50,19 @@ export default function AboutPage() {
       {/* Team Member Profile Card Segment */}
       <div className="w-full max-w-[1250px] mx-auto px-6 md:px-12 pt-2 md:pt-6 pb-12 md:pb-24 z-20 relative">
          {/* Main Profile Group Wrapper */}
-         <div className="w-full bg-card rounded-[40px] flex flex-col lg:flex-row lg:h-[520px] overflow-hidden border-[3.5px] border-foreground shadow-[12px_12px_0_0_currentColor] transition-all duration-500 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_currentColor] group/profile cursor-default text-foreground">
+         <div className="w-full bg-card rounded-[40px] flex flex-col lg:flex-row h-auto lg:h-[520px] overflow-hidden border-[3.5px] border-foreground shadow-[12px_12px_0_0_currentColor] transition-all duration-500 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_currentColor] group/profile cursor-default text-foreground">
             
             {/* Left Side (The Bio) */}
-            <div className="w-full lg:w-[45%] p-8 md:p-12 lg:p-14 flex flex-col justify-center relative overflow-y-auto no-scrollbar z-10 transition-transform duration-500 group-hover/profile:translate-x-1">
+            <div className="w-full lg:w-[45%] p-6 md:p-12 lg:p-14 flex flex-col justify-center relative overflow-y-auto no-scrollbar z-10 transition-transform duration-500 group-hover/profile:translate-x-1">
                
                {/* Heavy retro-serif Header */}
-               <h2 className="font-bowlby text-[5.5rem] md:text-[6.5rem] lg:text-[6.5rem] text-[#3F5B59] leading-none mb-3 tracking-wide mt-2 inline-block transition-transform duration-500 group-hover/profile:-rotate-2 group-hover/profile:scale-105 origin-left" style={{ textShadow: '4px 4px 0 #E63946' }}>
+               <motion.h2 
+                  initial={isMobile ? { opacity: 0, scale: 0.8, x: -20 } : {}}
+                  whileInView={isMobile ? { opacity: 1, scale: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, type: "spring" }}
+                  className="font-bowlby text-[3.5rem] md:text-[6.5rem] lg:text-[6.5rem] text-[#3F5B59] leading-none mb-3 tracking-wide mt-2 inline-block transition-transform duration-500 group-hover/profile:-rotate-2 group-hover/profile:scale-105 origin-left" style={{ textShadow: '2px 2px 0 #E63946' }}>
                   Hello!
-               </h2>
+               </motion.h2>
                
                {/* Thin horizontal divider mapped to teal gently expanding */}
                <div className="w-full max-w-[90%] h-[3px] bg-[#3F5B59] mb-8 transition-all duration-500 group-hover/profile:w-[95%] group-hover/profile:bg-[#E63946]" />
@@ -54,7 +72,7 @@ export default function AboutPage() {
                   <p>
                      I'm <span className="text-[#3F5B59] font-extrabold text-[1.1em] px-1 bg-[#D4E751] transition-colors duration-500 group-hover/profile:bg-[#E63946] group-hover/profile:text-[#FFF9EB]">Yunis</span>, an infrastructure-focused backend developer obsessed with high-uptime servers, dark roast coffee, and building bulletproof architectural experiences.
                   </p>
-                  <p className="transition-transform duration-500 delay-75 group-hover/profile:translate-x-2">
+                  <p className="hidden md:block transition-transform duration-500 delay-75 group-hover/profile:translate-x-2">
                      I consider myself a robust architect—a detail-oriented, hardworking engineer who's willing to push to production at every step of the way.
                   </p>
                </div>
@@ -85,8 +103,8 @@ export default function AboutPage() {
                </div>
             </div>
 
-            {/* Right Side (The Artist Illustration) fully retaining natural vibrance */}
-            <div className="w-full lg:w-[55%] h-[350px] md:h-[450px] lg:h-full overflow-hidden bg-white relative flex-shrink-0 z-0">
+            {/* Right Side (The Artist Illustration) - Hidden on Mobile to prioritize content and reduce height */}
+            <div className="hidden lg:block w-full lg:w-[55%] h-[350px] md:h-[450px] lg:h-full overflow-hidden bg-white relative flex-shrink-0 z-0">
                {/* 
                  By switching this background to white specifically, 
                  the multiply filter universally knocks out the white image background cleanly across themes 
@@ -108,33 +126,44 @@ export default function AboutPage() {
       <div className="w-full max-w-[95%] mx-auto border-t-[3px] border-dashed border-foreground/20 my-8" />
 
       {/* 3-Column Detailed Information Grid */}
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-20 grid grid-cols-1 md:grid-cols-3 gap-16 font-modern">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-10 md:py-20 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 font-modern">
          
          {/* Column 1: Expertise */}
-         <div className="space-y-10">
+         <motion.div 
+            initial={isMobile ? { opacity: 0, y: 30 } : {}}
+            whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, staggerChildren: 0.2 }}
+            className="space-y-10"
+         >
             <h3 className="font-vintage text-[2.5rem] md:text-4xl uppercase text-foreground tracking-wide inline-block border-b-[4px] border-foreground pb-1">SERVICES</h3>
             
             <div className="space-y-8">
-               <div className="group cursor-default">
+               <motion.div 
+                  variants={isMobile ? { hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } } : {}}
+                  className="group cursor-default"
+               >
                   <div className="text-[10px] font-bold tracking-[0.2em] opacity-60 mb-2 transition-transform duration-300 group-hover:translate-x-1">2025 — ONWARD</div>
                   <h4 className="font-black uppercase text-lg mb-2 text-foreground tracking-tight transition-transform duration-300 group-hover:translate-x-1">DIGITAL EXP.</h4>
                   <p className="text-sm bg-card p-5 rounded-2xl border-[3px] border-foreground/10 group-hover:border-foreground leading-relaxed text-foreground/90 group-hover:text-foreground font-bold transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[6px_6px_0_0_currentColor] group-hover:bg-background">
                      Illustration, UI/UX design, custom frontend integration, scalable systems, and bespoke aesthetic perfection.
                   </p>
-               </div>
+               </motion.div>
 
-               <div className="group cursor-default">
+               <motion.div 
+                  variants={isMobile ? { hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } } : {}}
+                  className="group cursor-default"
+               >
                   <div className="text-[10px] font-bold tracking-[0.2em] opacity-60 mb-2 transition-transform duration-300 group-hover:translate-x-1">PRE — 2025</div>
                   <h4 className="font-black uppercase text-lg mb-2 text-foreground tracking-tight transition-transform duration-300 group-hover:translate-x-1">ENGINEERING</h4>
                   <p className="text-sm bg-card p-5 rounded-2xl border-[3px] border-foreground/10 group-hover:border-foreground leading-relaxed text-foreground/90 group-hover:text-foreground font-bold transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[6px_6px_0_0_currentColor] group-hover:bg-background">
                      Web-app development, system architectures, full-stack pipelines, robust database layout and backend design.
                   </p>
-               </div>
+               </motion.div>
             </div>
-         </div>
+         </motion.div>
 
-         {/* Column 2: Principles */}
-         <div className="space-y-10">
+         {/* Column 2: Principles (Desktop Only to reduce mobile vertical sprawl) */}
+         <div className="hidden md:flex flex-col space-y-10">
             <h3 className="font-vintage text-[2.5rem] md:text-4xl uppercase text-foreground tracking-wide inline-block border-b-[4px] border-foreground pb-1">PRINCIPLES</h3>
             
             <div className="space-y-10">

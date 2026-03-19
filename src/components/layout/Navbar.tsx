@@ -35,21 +35,21 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-background pt-6 pb-2 border-b border-foreground/5">
-      <div className="w-full px-6 md:px-12">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">HOME</Link>
-            <Link href="/about" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">ABOUT US</Link>
+    <nav className="w-full bg-background pt-4 md:pt-6 pb-2 border-b border-foreground/5 sticky top-0 z-[5000] backdrop-blur-sm">
+      <div className="w-full px-4 md:px-12">
+        <div className="flex flex-wrap justify-between items-center gap-y-4 mb-4">
+          <div className="flex items-center gap-4 md:gap-8">
+            <Link href="/" className="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">HOME</Link>
+            <Link href="/about" className="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">ABOUT US</Link>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6 ml-auto md:ml-0">
             <Button 
               variant="outline" 
               size="icon" 
               onClick={toggleTheme}
-              className="rounded-full w-9 h-9 border-border bg-transparent hover:bg-muted transition-all duration-300 hover:scale-110 active:scale-95 group flex items-center justify-center p-0"
-              title={`Switch to ${(theme === 'default' ? 'dark' : theme === 'dark' ? 'grayscale' : 'default')} mode`}
+              className="rounded-full w-8 h-8 md:w-9 md:h-9 border-border bg-transparent hover:bg-muted transition-all duration-300 hover:scale-110 active:scale-95 group flex items-center justify-center p-0"
+              title={`Switch theme`}
             >
               <span className="transition-transform duration-500 ease-out group-hover:rotate-[180deg]">
                  {getThemeIcon()}
@@ -58,9 +58,9 @@ export default function Navbar() {
             <Link href="/contact">
               <Button 
                 variant="outline" 
-                className="rounded-full border-[2px] border-secondary text-[10px] font-black px-6 h-9 bg-transparent transition-all duration-300 group uppercase hover:-translate-y-1 hover:shadow-[4px_4px_0_0_currentColor] active:translate-y-0 active:shadow-none hover:bg-secondary/10"
+                className="rounded-full border-[2px] border-secondary text-[9px] md:text-[10px] font-black px-4 md:px-6 h-8 md:h-9 bg-transparent transition-all duration-300 group uppercase hover:-translate-y-1 hover:shadow-[4px_4px_0_0_currentColor] active:translate-y-0 active:shadow-none hover:bg-secondary/10"
               >
-                CONTACT US <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                CONTACT <span className="hidden sm:inline">US</span> <ArrowUpRight className="ml-1 md:ml-1.5 w-3 h-3 md:w-3.5 md:h-3.5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
               </Button>
             </Link>
           </div>

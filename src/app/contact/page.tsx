@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,6 +45,85 @@ const TelegramIcon = ({ className }: { className?: string }) => (
 );
 
 export default function ContactPage() {
+  const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(1200);
+
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = mounted && windowWidth < 768;
+
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'rate-limit'>('idle');
+
+  const checkRateLimit = () => {
+    const dispatches = JSON.parse(localStorage.getItem('offgrid_dispatches') || '[]');
+    const now = Date.now();
+    const threeDaysAgo = now - (3 * 24 * 60 * 60 * 1000); // 3 days in ms
+    
+    // Filter out dispatches older than 3 days
+    const activeDispatches = dispatches.filter((time: number) => time > threeDaysAgo);
+    localStorage.setItem('offgrid_dispatches', JSON.stringify(activeDispatches));
+
+    if (activeDispatches.length >= 3) {
+      setFormStatus('rate-limit');
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+    
+    // Check rate limit on mount
+    if (typeof window !== 'undefined') {
+      checkRateLimit();
+    }
+
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // Final check before submission
+    if (checkRateLimit()) return;
+
+    setFormStatus('submitting');
+    
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      // Live Formspree ID from user dashboard
+      const response = await fetch('https://formspree.io/f/xeerngzj', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Record successful dispatch timestamp
+        const dispatches = JSON.parse(localStorage.getItem('offgrid_dispatches') || '[]');
+        dispatches.push(Date.now());
+        localStorage.setItem('offgrid_dispatches', JSON.stringify(dispatches));
+        setFormStatus('success');
+      } else {
+        setFormStatus('error');
+      }
+    } catch (err) {
+      setFormStatus('error');
+    }
+  };
+
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Offgrid Team!")}`;
   const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${DIRECT_EMAIL}`;
 
@@ -67,11 +148,10 @@ export default function ContactPage() {
 
       <Navbar />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 flex flex-col items-center">
         
-        {/* Top Header Section */}
-        <div className="text-center mb-16 space-y-6 group/h1">
-          <h1 className="text-4xl md:text-7xl font-black uppercase tracking-tight text-foreground leading-[1.1] md:leading-none">
+        <div className="text-center mb-10 md:mb-16 space-y-4 md:space-y-6 group/h1">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black uppercase tracking-tight text-foreground leading-[1.1] md:leading-none">
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">IN</span>
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">SEARCH</span>
             <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-3">OF</span> <br className="hidden md:block" />
@@ -88,70 +168,167 @@ export default function ContactPage() {
         </div>
 
         {/* Main Content Area: Form */}
-        <div className="relative w-full max-w-2xl mx-auto mb-32">
+        <div className="relative w-full max-w-2xl mx-auto mb-16 md:mb-32">
           
           {/* The Contact Form Box */}
-          <div className="w-full bg-[#4FA4D7] rounded-[2.5rem] p-8 md:p-14 border-[4px] border-foreground shadow-[16px_16px_0_0_currentColor] relative z-10 transition-all duration-500 hover:shadow-[24px_24px_0_0_currentColor] hover:-translate-x-2 hover:-translate-y-2 group/form cursor-default">
-            <h2 className="text-xl md:text-3xl font-black text-white mb-10 text-center uppercase tracking-tight drop-shadow-sm transition-transform duration-500 group-hover/form:scale-105">
-              MISSION INQUIRY FORM
-            </h2>
+          <div className="w-full bg-[#4FA4D7] rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-8 border-[4px] border-foreground shadow-[12px_12px_0_0_currentColor] md:shadow-[16px_16px_0_0_currentColor] relative z-10 transition-all duration-500 hover:shadow-[20px_20px_0_0_currentColor] hover:-translate-x-2 hover:-translate-y-2 group/form cursor-default">
             
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">YOUR ALIAS / NAME</label>
-                <input 
-                  type="text" 
-                  placeholder="How should we address you?"
-                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">COMMUNICATION FREQUENCY (PHONE)</label>
-                <input 
-                  type="text" 
-                  placeholder="+X (XXX) XXX XX XX"
-                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">DIGITAL UPLINK (EMAIL)</label>
-                <input 
-                  type="email" 
-                  placeholder="name@domain.com"
-                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-black text-white/90 uppercase tracking-widest pl-4">THE BROADCAST (MESSAGE)</label>
-                <textarea 
-                  placeholder="Detailed project requirements..."
-                  rows={4}
-                  className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor] resize-none"
-                />
-              </div>
-
-              <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p className="text-[9px] font-bold text-white/80 leading-tight max-w-[240px] uppercase">
-                  By pushing dispatch, you agree to our <span className="underline cursor-pointer">Protocol Agreement</span> & Privacy Node.
-                </p>
-                <button 
-                  className="bg-[#E97332] text-white px-10 py-4 rounded-2xl border-[3.5px] border-foreground font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:bg-[#ff8a4d] transition-all shadow-[6px_6px_0_0_currentColor] active:translate-y-1 active:shadow-none flex items-center gap-2 group"
+            <AnimatePresence mode="wait">
+              {formStatus === 'success' ? (
+                <motion.div 
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="py-16 md:py-20 flex flex-col items-center text-center space-y-6 text-white"
                 >
-                  DISPATCH <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </form>
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
+                    <Send className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">SIGNAL_DELIVERED</h2>
+                  <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[300px] leading-relaxed">
+                    Your mission dispatch has been successfully broadcasted across the grid. We will sync with you shortly.
+                  </p>
+                  <button 
+                    onClick={() => setFormStatus('idle')}
+                    className="bg-white text-[#4FA4D7] px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                  >
+                    SEND ANOTHER SIGNAL
+                  </button>
+                </motion.div>
+              ) : formStatus === 'rate-limit' ? (
+                 <motion.div 
+                  key="rate-limit"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="py-16 md:py-20 flex flex-col items-center text-center space-y-6 text-white"
+                >
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-red-200 flex items-center justify-center animate-pulse">
+                    <div className="font-black text-2xl md:text-3xl">!</div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">UPLINK_QUOTA_EXCEEDED</h2>
+                  <div className="space-y-4">
+                    <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[320px] leading-relaxed">
+                      You've hit the dispatch limit (3 signals per 72H). Uplink will recalibrate shortly.
+                    </p>
+                    <a 
+                      href={gmailUrl}
+                      className="inline-block bg-white text-[#4FA4D7] px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                    >
+                      DIRECT EMAIL SIGNAL
+                    </a>
+                  </div>
+                </motion.div>
+              ) : formStatus === 'error' ? (
+                <motion.div 
+                  key="error"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="py-16 md:py-20 flex flex-col items-center text-center space-y-6 text-white"
+                >
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-red-200 flex items-center justify-center animate-pulse">
+                    <div className="font-black text-2xl md:text-3xl">!</div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">SIGNAL_INTERRUPTED</h2>
+                  <div className="space-y-4">
+                    <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[320px] leading-relaxed">
+                      Transmission failed. Check your uplink ID or <a href={`mailto:${DIRECT_EMAIL}`} className="underline">send via direct email signal</a>.
+                    </p>
+                    <button 
+                      onClick={() => setFormStatus('idle')}
+                      className="bg-white text-[#4FA4D7] px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                    >
+                      RETRY DISPATCH
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <motion.h2 
+                    initial={isMobile ? { opacity: 0, y: -20 } : {}}
+                    whileInView={isMobile ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5 }}
+                    className="text-lg md:text-2xl font-black text-white mb-6 md:mb-4 text-center uppercase tracking-tight drop-shadow-sm transition-transform duration-500 group-hover/form:scale-105"
+                  >
+                    MISSION INQUIRY FORM
+                  </motion.h2>
+                  
+                  <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
+                    <div className="space-y-2 md:space-y-1">
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">YOUR ALIAS / NAME</label>
+                      <input 
+                        name="alias"
+                        required
+                        type="text" 
+                        placeholder="How should we address you?"
+                        className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-3.5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                      />
+                    </div>
+
+                    <div className="space-y-2 md:space-y-1 hidden md:block">
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">COMMUNICATION FREQUENCY (PHONE)</label>
+                      <input 
+                        name="phone"
+                        type="text" 
+                        placeholder="+X (XXX) XXX XX XX"
+                        className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-3.5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                      />
+                    </div>
+
+                    <div className="space-y-2 md:space-y-1">
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">DIGITAL UPLINK (EMAIL)</label>
+                      <input 
+                        name="email"
+                        required
+                        type="email" 
+                        placeholder="name@domain.com"
+                        className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-3.5 text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor]"
+                      />
+                    </div>
+
+                    <div className="space-y-2 md:space-y-1">
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">THE BROADCAST (MESSAGE)</label>
+                      <textarea 
+                        name="message"
+                        required
+                        placeholder="Detailed project requirements..."
+                        rows={3}
+                        className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-3.5 text-[13px] md:text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor] resize-none"
+                      />
+                    </div>
+
+                    <motion.div 
+                      initial={isMobile ? { opacity: 0, scale: 0.9 } : {}}
+                      whileInView={isMobile ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      className="pt-4 flex flex-col md:flex-row justify-between items-center gap-6"
+                    >
+                      <p className="text-[9px] font-bold text-white/80 leading-tight max-w-[240px] uppercase">
+                        By pushing dispatch, you agree to our <span className="underline cursor-pointer">Protocol Agreement</span> & Privacy Node.
+                      </p>
+                      <button 
+                        disabled={formStatus === 'submitting'}
+                        className="bg-[#E97332] text-white px-10 py-4 rounded-2xl border-[3.5px] border-foreground font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:bg-[#ff8a4d] transition-all shadow-[6px_6px_0_0_currentColor] active:translate-y-1 active:shadow-none flex items-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {formStatus === 'submitting' ? "SYNCING..." : "DISPATCH"} 
+                        <Send className={cn("w-4 h-4 group-hover:translate-x-1 transition-transform", formStatus === 'submitting' && "animate-pulse")} />
+                      </button>
+                    </motion.div>
+                  </form>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Footer Navigation Section (Zine Style) */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 border-t-[3.5px] border-foreground pt-16 mt-8">
+
+        {/* Footer Navigation Section (Zine Style) - Hidden on Mobile to prioritize the form */}
+        <div className="hidden md:grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 border-t-[3.5px] border-foreground pt-16 mt-8">
           
-          {/* Column 1: Info (Functional Only) */}
-          <div className="space-y-6">
+          {/* Column 1: Info (Hidden on Mobile to reduce clutter) */}
+          <div className="hidden lg:flex flex-col space-y-6">
             <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">SECTION: ARCHIVE</div>
             <div className="space-y-3">
               <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">Our Mission</Link>

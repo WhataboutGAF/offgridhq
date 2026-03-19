@@ -29,7 +29,7 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
   return (
-    <section id="projects" className="py-12 bg-background px-4 md:px-8">
+    <section id="projects" className="hidden md:block py-0 md:py-12 bg-background px-4 md:px-8">
       <div className="max-w-7xl mx-auto bg-muted/40 dark:bg-muted/10 border border-foreground/5 dark:border-white/5 rounded-[4rem] p-8 md:p-20 shadow-inner dark:shadow-none relative flex flex-col">
         
         {/* Header Row */}

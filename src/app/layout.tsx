@@ -3,8 +3,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Design Class - Level Up Your Design',
-  description: 'High-end design classes and tutorials for the modern creative.',
+  title: 'OFFGRID HQ | Level Up Your Internet',
+  description: 'High-performance nodes and bespoke architectural engineering for the modern creative.',
 };
 
 import CustomCursor from '@/components/layout/CustomCursor';

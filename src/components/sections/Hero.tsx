@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRight, Hammer, Users, MessageSquare, Smile, Sparkles, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import projectsData from "../../../projects.json";
@@ -25,19 +26,22 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const [windowWidth, setWindowWidth] = useState(1200);
+  const [mounted, setMounted] = useState(false);
   const asteriskRef = useRef<HTMLDivElement>(null);
   const lastHoverTime = useRef<number>(0);
 
-  // Smooth asterisk rotation logic
+  // Smooth asterisk rotation and Window Resize logic
   useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+
     let requestRef: number;
     let currentRotation = 0;
     let targetRotation = 0;
 
     const updateRotation = () => {
-      // Very relaxed easing for background element
       currentRotation += (targetRotation - currentRotation) * 0.05;
-      
       if (asteriskRef.current) {
         asteriskRef.current.style.transform = `translateY(-50%) rotate(${currentRotation}deg)`;
       }
@@ -45,22 +49,26 @@ export default function Hero() {
     };
 
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      targetRotation = scrollY * 0.15; // Slowed down scroll response
+      targetRotation = window.scrollY * 0.15;
+    };
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
     requestRef = requestAnimationFrame(updateRotation);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(requestRef);
     };
   }, []);
 
   const handleMouseEnterCard = (index: number) => {
     const now = Date.now();
-    // Fast cooldown avoids snapping if mouse briefly passes over another card
     if (now - lastHoverTime.current >= 200) {
       setActiveIndex(index);
       lastHoverTime.current = now;
@@ -79,34 +87,43 @@ export default function Hero() {
 
     let scale = 1;
     let translateY = 0;
-    // zIndex strict layering keeps the active element on top naturally
     let zIndex = 50 - absDistance;
+    let opacity = 1;
+
+    // Use safe desktop defaults for server-render to prevent hydration mismatch
+    const isSmall = mounted && windowWidth < 640;
+    const isMedium = mounted && windowWidth < 1024;
 
     if (absDistance === 1) {
-      scale = 0.85;
-      translateY = 40; 
+      scale = isSmall ? 0.8 : 0.85;
+      translateY = isSmall ? 25 : 40; 
+      if (isSmall) opacity = 0.2; // Fade neighbors on mobile
     } else if (absDistance >= 2) {
-      scale = 0.7;
-      translateY = 80; 
+      scale = isSmall ? 0.6 : 0.7;
+      translateY = isSmall ? 40 : 80; 
+      if (isSmall) opacity = 0; // Hide far cards on mobile
     }
 
-    // Increased horizontal spread to permanently fix "jigsaw" masking overlaps where text clips over other cards!
-    const translateX = distance * 280; 
+    // Dynamic horizontal spread for responsiveness
+    // Using higher compression for mobile (100) to keep active card centered
+    const spread = !mounted ? 280 : isSmall ? 100 : isMedium ? 220 : 280;
+    const translateX = distance * spread; 
 
     return {
       transform: `translateX(calc(-50% + ${translateX}px)) translateY(${translateY}px) scale(${scale})`,
       zIndex,
+      opacity,
     };
   };
 
   return (
-    <section className="relative pt-2 pb-32 overflow-hidden bg-background">
+    <section className="relative pt-2 pb-0 md:pb-32 overflow-hidden bg-background">
       <div className="max-w-[100vw] mx-auto px-6 md:px-12 relative z-10 w-full overflow-hidden">
         <div className="flex flex-col items-center mb-4 relative">
           
           <div 
             ref={asteriskRef}
-            className="absolute left-[-13rem] top-[30%] -translate-y-1/2 hidden xl:block will-change-transform pointer-events-none z-0 opacity-100"
+            className="absolute left-[-13rem] top-[30%] -translate-y-1/2 hidden md:block will-change-transform pointer-events-none z-0 opacity-100"
             style={{ width: '340px', height: '340px' }} 
           >
             <svg 
@@ -126,30 +143,61 @@ export default function Hero() {
             </svg>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-6 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-6 md:mt-10 cursor-default group/h1">
-            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">LEVEL</span>{' '}
-            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">UP</span>{' '}
-            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">YOUR</span> <br />
+          <motion.h1 
+            initial={mounted && windowWidth < 640 ? { opacity: 0, y: 30 } : {}}
+            whileInView={mounted && windowWidth < 640 ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            viewport={{ once: true }}
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-6 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-6 md:mt-10 cursor-default group/h1"
+          >
+            <motion.span 
+              variants={mounted && windowWidth < 640 ? { hidden: { scale: 0.8, opacity: 0 }, visible: { scale: 1, opacity: 1 } } : {}}
+              className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105"
+            >LEVEL</motion.span>{' '}
+            <motion.span 
+              variants={mounted && windowWidth < 640 ? { hidden: { scale: 0.8, opacity: 0 }, visible: { scale: 1, opacity: 1 } } : {}}
+              className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105"
+            >UP</motion.span>{' '}
+            <motion.span 
+              variants={mounted && windowWidth < 640 ? { hidden: { scale: 0.8, opacity: 0 }, visible: { scale: 1, opacity: 1 } } : {}}
+              className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105"
+            >YOUR</motion.span> <br />
             
-            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-1 md:mr-3">INTERNET</span>
+            <motion.span 
+              variants={mounted && windowWidth < 640 ? { hidden: { x: -20, opacity: 0 }, visible: { x: 0, opacity: 1 } } : {}}
+              className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-1 md:mr-3"
+            >INTERNET</motion.span>
             <span className="inline-flex items-center align-middle h-10 md:h-16 px-6 md:px-8 bg-secondary rounded-none mx-2 md:mx-4 shadow-[4px_4px_0_0_currentColor] transition-all duration-300 hover:rotate-[4deg] hover:scale-110 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_currentColor] pointer-events-auto">
                <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-secondary-foreground transition-transform duration-[600ms] group-hover/h1:translate-x-4" />
             </span>{' '}
-            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 ml-1 md:ml-3">WITH</span> <br />
+            <motion.span 
+              variants={mounted && windowWidth < 640 ? { hidden: { x: 20, opacity: 0 }, visible: { x: 0, opacity: 1 } } : {}}
+              className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 ml-1 md:ml-3"
+            >WITH</motion.span> <br />
             
-            <span className="bg-secondary text-secondary-foreground px-4 md:px-6 py-2 md:py-3 mt-2 md:mt-4 inline-block leading-none font-black rounded-none shadow-[6px_6px_0_0_currentColor] transition-all duration-300 hover:-rotate-2 hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[12px_12px_0_0_currentColor]">
+            <motion.span 
+              initial={mounted && windowWidth < 640 ? { scale: 0.5, opacity: 0, rotate: -10 } : {}}
+              whileInView={mounted && windowWidth < 640 ? { scale: 1, opacity: 1, rotate: 0 } : {}}
+              transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+              className="bg-secondary text-secondary-foreground px-4 md:px-6 py-2 md:py-3 mt-2 md:mt-4 inline-block leading-none font-black rounded-none shadow-[6px_6px_0_0_currentColor] transition-all duration-300 hover:-rotate-2 hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[12px_12px_0_0_currentColor]"
+            >
                OFFGRID HQ
-            </span>
-          </h1>
+            </motion.span>
+          </motion.h1>
 
           <div className="flex justify-between items-center mb-16 w-full max-w-6xl z-20 px-4">
-            <div className="text-left flex flex-col">
+            <motion.div 
+              initial={mounted && windowWidth < 640 ? { opacity: 0, x: -30 } : {}}
+              whileInView={mounted && windowWidth < 640 ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-left flex flex-col"
+            >
               <p className="text-[10px] md:text-[11px] font-black text-muted-foreground uppercase mb-1 tracking-[0.25em]">With more than</p>
               <div className="flex flex-col">
                 <span className="text-xl md:text-3xl font-black uppercase leading-tight tracking-tighter text-foreground">2K+ USERS</span>
                 <span className="text-xl md:text-3xl font-black uppercase leading-tight tracking-tighter text-foreground">5+ PROJECTS</span>
               </div>
-            </div>
+            </motion.div>
 
             <button 
               className="flex items-center gap-2 bg-card border border-border/50 rounded-full py-1.5 pl-5 pr-1.5 shadow-sm hover:shadow-md transition-all group pointer-events-auto"
@@ -161,7 +209,7 @@ export default function Hero() {
             </button>
           </div>
           
-          <div className="relative w-full flex justify-center items-start h-[36rem] mt-4">
+          <div className="relative w-full flex justify-center items-start h-[28rem] md:h-[36rem] mt-4">
             {/* Minimal background guide path */}
             <div className="absolute top-28 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] h-[3px] bg-black/5 rounded-full" />
 
@@ -238,12 +286,7 @@ export default function Hero() {
                     <ArrowUpRight className="w-5 h-5 stroke-[3]" />
                   </button>
 
-                  {/* View Specs Overlay for Hero Cards */}
-                  {isActive && (
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px] pointer-events-none z-[60] rounded-xl">
-                       <span className="bg-black text-white text-[9px] font-black uppercase tracking-[0.2em] px-4 py-2 border-2 border-white shadow-[4px_4px_0_0_#000] transform -rotate-2">DISPATCH_SPECS</span>
-                    </div>
-                  )}
+                  {/* View Specs Overlay Removal */}
                 </div>
               );
             })}
