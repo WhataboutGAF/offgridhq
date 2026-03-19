@@ -41,6 +41,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4 md:gap-8">
             <Link href="/" className="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">HOME</Link>
             <Link href="/about" className="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">ABOUT US</Link>
+            <Link href="/blog" className="text-[9px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">BLOG</Link>
           </div>
 
           <div className="flex items-center gap-3 md:gap-6 ml-auto md:ml-0">

@@ -303,10 +303,11 @@ export default function ContactPage() {
                       />
                     </div>
                     
-                    <div className="pt-2">
+                    <div className="absolute opacity-0 pointer-events-none">
                        <Turnstile 
-                         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
+                         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AB"} 
                          onSuccess={(token) => setTurnstileToken(token)}
+                         options={{ size: 'invisible' }}
                        />
                     </div>
 
