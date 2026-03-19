@@ -39,8 +39,8 @@ export default function Navbar() {
       <div className="w-full px-6 md:px-12">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-8">
-            <Link href="/" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors uppercase">HOME</Link>
-            <Link href="/about" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors uppercase">ABOUT US</Link>
+            <Link href="/" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">HOME</Link>
+            <Link href="/about" className="text-[10px] font-black tracking-[0.2em] text-muted-foreground hover:text-primary transition-all duration-300 uppercase relative after:absolute after:-bottom-[6px] after:left-0 after:w-0 hover:after:w-full after:h-[2.5px] after:bg-primary after:transition-all after:duration-300 hover:-translate-y-[2px]">ABOUT US</Link>
           </div>
 
           <div className="flex items-center gap-6">
@@ -48,17 +48,19 @@ export default function Navbar() {
               variant="outline" 
               size="icon" 
               onClick={toggleTheme}
-              className="rounded-full w-9 h-9 border-border bg-transparent hover:bg-muted transition-all"
+              className="rounded-full w-9 h-9 border-border bg-transparent hover:bg-muted transition-all duration-300 hover:scale-110 active:scale-95 group flex items-center justify-center p-0"
               title={`Switch to ${(theme === 'default' ? 'dark' : theme === 'dark' ? 'grayscale' : 'default')} mode`}
             >
-              {getThemeIcon()}
+              <span className="transition-transform duration-500 ease-out group-hover:rotate-[180deg]">
+                 {getThemeIcon()}
+              </span>
             </Button>
             <Link href="/contact">
               <Button 
                 variant="outline" 
-                className="rounded-full border-[1.5px] border-secondary text-[10px] font-black px-6 h-9 bg-transparent hover:bg-secondary/10 transition-all group uppercase"
+                className="rounded-full border-[2px] border-secondary text-[10px] font-black px-6 h-9 bg-transparent transition-all duration-300 group uppercase hover:-translate-y-1 hover:shadow-[4px_4px_0_0_currentColor] active:translate-y-0 active:shadow-none hover:bg-secondary/10"
               >
-                CONTACT US <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                CONTACT US <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
               </Button>
             </Link>
           </div>

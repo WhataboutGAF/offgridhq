@@ -123,10 +123,20 @@ export default function Hero() {
             </svg>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-10 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-12 md:mt-24">
-            LEVEL UP YOUR <br />
-            INTERNET <span className="inline-flex items-center align-middle h-10 md:h-16 px-6 md:px-8 bg-secondary rounded-none mx-2 md:mx-4 shadow-lg shadow-secondary/20"><ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-secondary-foreground" /></span> WITH <br />
-            <span className="bg-secondary text-secondary-foreground px-4 md:px-6 py-2 md:py-3 inline-block leading-none font-black rounded-none">OFFGRID HQ</span>
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[6.5rem] font-black mb-10 leading-[1.1] tracking-tighter uppercase text-center w-full max-w-6xl text-foreground relative z-10 mt-12 md:mt-24 cursor-default group/h1">
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">LEVEL</span>{' '}
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">UP</span>{' '}
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105">YOUR</span> <br />
+            
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-1 md:mr-3">INTERNET</span>
+            <span className="inline-flex items-center align-middle h-10 md:h-16 px-6 md:px-8 bg-secondary rounded-none mx-2 md:mx-4 shadow-[4px_4px_0_0_currentColor] transition-all duration-300 hover:rotate-[4deg] hover:scale-110 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_currentColor] pointer-events-auto">
+               <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-secondary-foreground transition-transform duration-[600ms] group-hover/h1:translate-x-4" />
+            </span>{' '}
+            <span className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 ml-1 md:ml-3">WITH</span> <br />
+            
+            <span className="bg-secondary text-secondary-foreground px-4 md:px-6 py-2 md:py-3 mt-2 md:mt-4 inline-block leading-none font-black rounded-none shadow-[6px_6px_0_0_currentColor] transition-all duration-300 hover:-rotate-2 hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[12px_12px_0_0_currentColor]">
+               OFFGRID HQ
+            </span>
           </h1>
 
           <div className="flex justify-between items-center mb-16 w-full max-w-6xl z-20 px-4">
