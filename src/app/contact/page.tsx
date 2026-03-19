@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { sendMissionSignal } from "@/app/actions/contact";
 import Navbar from "@/components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,8 +21,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const WHATSAPP_NUMBER = "9779803026271";
-const DIRECT_EMAIL = "offgridhqteam@gmail.com";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9779803026271";
+const DIRECT_EMAIL = process.env.NEXT_PUBLIC_DIRECT_EMAIL || "offgridhqteam@gmail.com";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -59,6 +61,7 @@ export default function ContactPage() {
   const isMobile = mounted && windowWidth < 768;
 
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'rate-limit'>('idle');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const checkRateLimit = () => {
     const dispatches = JSON.parse(localStorage.getItem('offgrid_dispatches') || '[]');
@@ -93,24 +96,25 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    // Final check for bots
+    if (!turnstileToken) {
+      alert("SIGNAL_FLAG: VERIFICATION_ENTITY_NOT_FOUND. PLEASE COMPLETE THE SENTINEL CHECK.");
+      return;
+    }
+
     // Final check before submission
     if (checkRateLimit()) return;
 
     setFormStatus('submitting');
     
     const formData = new FormData(e.currentTarget);
+    formData.append('cf-turnstile-response', turnstileToken);
     
     try {
-      // Live Formspree ID from user dashboard
-      const response = await fetch('https://formspree.io/f/xeerngzj', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
+      // High-Performance Signal Dispatch via Server Action (Hides Formspree ID)
+      const result = await sendMissionSignal(formData);
       
-      if (response.ok) {
+      if (result.success) {
         // Record successful dispatch timestamp
         const dispatches = JSON.parse(localStorage.getItem('offgrid_dispatches') || '[]');
         dispatches.push(Date.now());
@@ -297,6 +301,13 @@ export default function ContactPage() {
                         rows={3}
                         className="w-full bg-[#FFFBEB] dark:bg-card border-[3.5px] border-foreground rounded-2xl p-4 md:p-3.5 text-[13px] md:text-sm font-bold text-foreground outline-none transition-all focus:translate-x-1 focus:translate-y-1 focus:shadow-none shadow-[4px_4px_0_0_currentColor] resize-none"
                       />
+                    </div>
+                    
+                    <div className="pt-2">
+                       <Turnstile 
+                         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
+                         onSuccess={(token) => setTurnstileToken(token)}
+                       />
                     </div>
 
                     <motion.div 

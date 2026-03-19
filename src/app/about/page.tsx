@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 
-const WHATSAPP_NUMBER = "9779803026271";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9779803026271";
 
 export default function AboutPage() {
   const [mounted, setMounted] = useState(false);

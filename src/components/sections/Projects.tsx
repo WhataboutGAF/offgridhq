@@ -82,14 +82,12 @@ export default function Projects() {
               {/* Bottom Section: Illustration Area */}
               <div className="px-6 pb-6 mt-auto">
                 <div className="h-44 rounded-[1.25rem] relative overflow-hidden group shadow-sm bg-muted/50 dark:bg-background/40">
-                  <img 
-                    src={`/top-projects-preview/${project.imageFile || "placeholder.jpg"}`}
-                    alt={project.title || project.name || "Project"}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${project.seed || 'fallback'}/600/400`;
-                    }}
-                    data-ai-hint={project.imageHint || ""}
+                  <Image 
+                    src={project.imageFile ? `/top-projects-preview/${project.imageFile}` : `https://picsum.photos/seed/${project.seed || 'fallback'}/600/400`}
+                    alt={project.title || project.name || "OFFGRID HQ Project Showcase"}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                    sizes="(max-width: 768px) 100vw, 340px"
                   />
                   <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
                   
