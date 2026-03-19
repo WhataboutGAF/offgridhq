@@ -99,7 +99,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             src={post.image || "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop"}
             alt={post.title}
             fill
-            className="object-cover group-hover/hero:scale-110 transition-transform duration-[2000ms]"
+            className="object-cover group-hover/hero:scale-110 transition-transform duration-2000"
             priority
           />
         </div>

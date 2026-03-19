@@ -181,7 +181,7 @@ export default function Hero() {
               className="inline-block transition-transform duration-500 hover:-translate-y-2 hover:scale-105 mr-1 md:mr-3"
             >INTERNET</motion.span>
             <span className="inline-flex items-center align-middle h-10 md:h-16 px-6 md:px-8 bg-secondary rounded-none mx-2 md:mx-4 shadow-[4px_4px_0_0_currentColor] transition-all duration-300 hover:rotate-[4deg] hover:scale-110 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_currentColor] pointer-events-auto">
-               <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-secondary-foreground transition-transform duration-[600ms] group-hover/h1:translate-x-4" />
+               <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-secondary-foreground transition-transform duration-600 group-hover/h1:translate-x-4" />
             </span>{' '}
             <motion.span 
               variants={mounted && windowWidth < 640 ? { hidden: { x: 20, opacity: 0 }, visible: { x: 0, opacity: 1 } } : {}}
@@ -244,7 +244,7 @@ export default function Hero() {
                     ...getCardStyle(index),
                   }}
                   className={cn(
-                    "absolute left-1/2 top-0 group/card w-[18rem] md:w-[22rem] h-[24rem] md:h-[28rem] rounded-xl flex flex-col items-start justify-between p-6 md:p-8 select-none cursor-pointer border-[3px] border-black duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    "absolute left-1/2 top-0 group/card w-[18rem] md:w-[22rem] h-[24rem] md:h-[28rem] rounded-xl flex flex-col items-start justify-between p-6 md:p-8 select-none cursor-pointer border-[3px] border-black duration-700 ease-offgrid",
                     isActive ? "opacity-100" : "opacity-100 grayscale-[0.3]" // Cards strictly opaque so outlines don't bleed through
                   )}
                 >

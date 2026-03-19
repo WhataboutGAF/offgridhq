@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Moon, Sun, Monitor, Menu } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sheet,
   SheetContent,
@@ -43,10 +44,29 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { label: "HOME", href: "/" },
-    { label: "ABOUT US", href: "/about" },
-    { label: "BLOG", href: "/blog" },
+    { label: "HOME", href: "/", sub: "Ground Zero" },
+    { label: "ABOUT US", href: "/about", sub: "The Registry" },
+    { label: "BLOG", href: "/blog", sub: "Mission Dispatch" },
   ];
+
+  const sidebarVariants = {
+    closed: { opacity: 0, x: "-100%" },
+    open: { 
+      opacity: 1, 
+      x: 0,
+      transition: { 
+        duration: 0.5, 
+        ease: [0.16, 1, 0.3, 1],
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: -20 },
+    open: { opacity: 1, x: 0 }
+  };
 
   return (
     <nav className="w-full bg-background pt-4 md:pt-6 pb-4 md:pb-2 border-b border-foreground/5 sticky top-0 z-[5000] backdrop-blur-sm">
@@ -56,39 +76,61 @@ export default function Navbar() {
           <div className="flex items-center gap-4 md:hidden">
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="w-9 h-9 border-border bg-transparent hover:bg-muted rounded-full transition-all duration-300">
-                  <Menu className="w-4 h-4" />
+                <Button variant="outline" size="icon" className="w-10 h-10 border-foreground/20 bg-transparent hover:bg-muted rounded-none transition-all duration-300 shadow-[2px_2px_0_0_currentColor] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
+                  <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[85vw] bg-background border-r border-border p-8 flex flex-col justify-between">
-                <div>
-                  <SheetHeader className="mb-12">
-                     <SheetTitle className="text-left text-xs font-black tracking-[0.3em] uppercase text-primary/60">NAVIGATION</SheetTitle>
+              <SheetContent side="left" className="w-full sm:w-[450px] bg-background border-r-2 border-foreground p-0 flex flex-col justify-between overflow-hidden">
+                <div className="flex-grow flex flex-col">
+                  <SheetHeader className="p-8 border-b border-foreground/5 bg-muted/30">
+                     <div className="flex items-center justify-between">
+                        <SheetTitle className="text-left text-[10px] font-black tracking-[0.4em] uppercase text-primary/60">SYSTEM_NAV</SheetTitle>
+                        <div className="flex items-center gap-2">
+                           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                           <span className="text-[9px] font-black opacity-40">ONLINE</span>
+                        </div>
+                     </div>
                   </SheetHeader>
-                  <div className="space-y-6">
-                    {navItems.map((item) => (
-                      <Link 
+                  
+                  <div className="p-8 space-y-2 mt-4">
+                    {navItems.map((item, idx) => (
+                      <motion.div
                         key={item.label}
-                        href={item.href} 
-                        className="block text-4xl font-black tracking-tighter hover:text-primary transition-colors uppercase group"
+                        variants={itemVariants}
+                        initial="closed"
+                        animate={isMenuOpen ? "open" : "closed"}
+                      >
+                        <Link 
+                          href={item.href} 
+                          className="group flex items-end gap-6 py-4 border-b border-foreground/5 hover:border-primary/30 transition-colors"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <span className="text-xs font-black opacity-20 group-hover:opacity-100 group-hover:text-primary transition-all tabular-nums">0{idx + 1}</span>
+                          <div className="flex flex-col">
+                            <span className="text-5xl font-black tracking-tighter uppercase group-hover:text-primary transition-colors leading-none">{item.label}</span>
+                            <span className="text-[9px] font-bold opacity-30 tracking-widest uppercase mt-1 group-hover:opacity-60 transition-opacity">{item.sub}</span>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                    
+                    <motion.div variants={itemVariants} initial="closed" animate={isMenuOpen ? "open" : "closed"}>
+                      <Link 
+                        href="/contact" 
+                        className="group flex items-end gap-6 py-4 border-b border-foreground/5 hover:border-secondary/30 transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        <span className="inline-block group-hover:translate-x-2 transition-transform duration-300">{item.label}</span>
+                        <span className="text-xs font-black opacity-20 group-hover:opacity-100 group-hover:text-secondary transition-all tabular-nums">04</span>
+                        <div className="flex flex-col">
+                          <span className="text-5xl font-black tracking-tighter uppercase group-hover:text-secondary transition-colors leading-none">CONTACT</span>
+                          <span className="text-[9px] font-bold opacity-30 tracking-widest uppercase mt-1 group-hover:opacity-60 transition-opacity">The Uplink</span>
+                        </div>
                       </Link>
-                    ))}
-                    <Link 
-                      href="/contact" 
-                      className="block text-4xl font-black tracking-tighter hover:text-primary transition-colors uppercase group"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className="inline-block group-hover:translate-x-2 transition-transform duration-300">CONTACT</span>
-                    </Link>
+                    </motion.div>
                   </div>
                 </div>
                 
-                <div className="pt-8 border-t border-border">
-                  <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50">Offgrid HQ — 2026</p>
-                </div>
+
               </SheetContent>
             </Sheet>
             
@@ -147,4 +189,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
 
