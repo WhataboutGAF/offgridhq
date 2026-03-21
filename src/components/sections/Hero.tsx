@@ -226,7 +226,7 @@ export default function Hero() {
             {/* Minimal background guide path */}
             <div className="absolute top-28 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] h-[3px] bg-black/5 rounded-full" />
 
-            {projectsData.map((project: { id: string, name: string, description: string, logoFile: string, themeColor: string, shadowColor: string, projectUrl: string }, index: number) => {
+            {projectsData.map((project: { id: string, name: string, description: string, logoFile: string, themeColor: string, shadowColor: string, projectUrl: string, launchDate?: string, liveStatus?: string, techStack?: string[] }, index: number) => {
               const isActive = index === activeIndex;
               const hasError = imageErrors[project.id || index];
               
@@ -295,7 +295,7 @@ export default function Hero() {
                       isActive ? "shadow-[4px_4px_0_0_#000000] pointer-events-auto" : "shadow-none opacity-50 pointer-events-none"
                     )}
                   >
-                    LAUNCH
+                    VIEW DETAILS
                     <ArrowUpRight className="w-5 h-5 stroke-[3]" />
                   </button>
 

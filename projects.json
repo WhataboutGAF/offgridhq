@@ -6,7 +6,10 @@
     "logoFile": "Tooldaddy.png",
     "themeColor": "#FFD100",
     "shadowColor": "#000000",
-    "projectUrl": "https://tool-daddy-v-5.vercel.app/"
+    "projectUrl": "https://tool-daddy-v-5.vercel.app/",
+    "launchDate": "Q11 2025",
+    "liveStatus": "99.9%",
+    "techStack": ["TYPESCRIPT", "Tailwind CSS", "OTHER"]
   },
   {
     "id": "social",
@@ -15,7 +18,10 @@
     "logoFile": "social-logo.png",
     "themeColor": "#FF007F",
     "shadowColor": "#2D00F7",
-    "projectUrl": "https://example.com/social"
+    "projectUrl": "https://example.com/social",
+    "launchDate": "Q4 2025",
+    "liveStatus": "98.5%",
+    "techStack": ["React", "Firebase", "Tailwind", "Clerk"]
   },
   {
     "id": "NEXT-FACE",
@@ -24,7 +30,10 @@
     "logoFile": "NextFace.png",
     "themeColor": "#0066FF",
     "shadowColor": "#FFD100",
-    "projectUrl": "https://example.com/nextface"
+    "projectUrl": "https://example.com/nextface",
+    "launchDate": "Q3 2026",
+    "liveStatus": "100%",
+    "techStack": ["TYPESCRIPT", "CSS","Socket.io", "OTHER"]
   },
   {
     "id": "ghosty",
@@ -33,7 +42,10 @@
     "logoFile": "ghosty.png",
     "themeColor": "#00FFD1",
     "shadowColor": "#7000FF",
-    "projectUrl": "https://ghosty-app.vercel.app/"
+    "projectUrl": "https://ghosty-app.vercel.app/",
+    "launchDate": "Q2 2026",
+    "liveStatus": "BETA",
+    "techStack": ["React", "Socket.io", "Node.js", "OTHER"]
   },
   {
     "id": "vasha",
@@ -42,6 +54,9 @@
     "logoFile": "vasha.png",
     "themeColor": "#7000FF",
     "shadowColor": "#00FFD1",
-    "projectUrl": "https://merovasha.vercel.app/"
+    "projectUrl": "https://merovasha.vercel.app/",
+    "launchDate": "Q3 2026",
+    "liveStatus": "DEVELOPMENT",
+    "techStack": ["Next.js", "Supabase", "Tailwind CSS", "TYPESCRIPT","OTHER"]
   }
 ]

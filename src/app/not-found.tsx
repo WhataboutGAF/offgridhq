@@ -74,10 +74,10 @@ export default function NotFound() {
 
         <div className="space-y-4 max-w-md mx-auto">
           <h2 className="text-2xl font-black uppercase tracking-tight text-foreground">
-            SIGNAL_LOST: NODE_NOT_FOUND
+            PAGE NOT FOUND
           </h2>
           <p className="text-sm font-bold text-foreground/60 uppercase tracking-widest leading-relaxed">
-            The requested transmission channel has been decommissioned or moved off-grid. Uplink calibration required.
+            The page you're looking for was moved or doesn't exist. Please head back to safety.
           </p>
         </div>
 
@@ -88,15 +88,15 @@ export default function NotFound() {
             className="mt-8 bg-foreground text-background px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[8px_8px_0_0_#4FA4D7] hover:shadow-none transition-all flex items-center gap-3 mx-auto border-[3px] border-foreground"
           >
             <ArrowLeft className="w-5 h-5" />
-            RETURN TO GRID
+            GO BACK HOME
           </motion.button>
         </Link>
       </motion.div>
 
       {/* Background Decor */}
       <div className="absolute bottom-10 left-10 text-[10px] font-mono opacity-20 hidden md:block uppercase tracking-widest leading-none text-foreground select-none">
-        ERROR_CODE: 0x404_NULL_POINTER<br />
-        STATUS: DISCONNECTED
+        404 ERROR<br />
+        STATUS: OFFLINE
       </div>
     </main>
   );

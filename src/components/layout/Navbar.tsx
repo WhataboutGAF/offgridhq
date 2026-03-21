@@ -44,9 +44,9 @@ export default function Navbar() {
   };
 
   const navItems = [
-    { label: "HOME", href: "/", sub: "Ground Zero" },
-    { label: "ABOUT US", href: "/about", sub: "The Registry" },
-    { label: "BLOG", href: "/blog", sub: "Mission Dispatch" },
+    { label: "HOME", href: "/", sub: "Welcome" },
+    { label: "ABOUT US", href: "/about", sub: "Who We Are" },
+    { label: "BLOG", href: "/blog", sub: "Our Articles" },
   ];
 
   const sidebarVariants = {
@@ -84,7 +84,7 @@ export default function Navbar() {
                 <div className="flex-grow flex flex-col">
                   <SheetHeader className="p-8 border-b border-foreground/5 bg-muted/30">
                      <div className="flex items-center justify-between">
-                        <SheetTitle className="text-left text-[10px] font-black tracking-[0.4em] uppercase text-primary/60">SYSTEM_NAV</SheetTitle>
+                        <SheetTitle className="text-left text-[10px] font-black tracking-[0.4em] uppercase text-primary/60">MENU</SheetTitle>
                         <div className="flex items-center gap-2">
                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                            <span className="text-[9px] font-black opacity-40">ONLINE</span>
@@ -123,7 +123,7 @@ export default function Navbar() {
                         <span className="text-xs font-black opacity-20 group-hover:opacity-100 group-hover:text-secondary transition-all tabular-nums">04</span>
                         <div className="flex flex-col">
                           <span className="text-5xl font-black tracking-tighter uppercase group-hover:text-secondary transition-colors leading-none">CONTACT</span>
-                          <span className="text-[9px] font-bold opacity-30 tracking-widest uppercase mt-1 group-hover:opacity-60 transition-opacity">The Uplink</span>
+                          <span className="text-[9px] font-bold opacity-30 tracking-widest uppercase mt-1 group-hover:opacity-60 transition-opacity">Get In Touch</span>
                         </div>
                       </Link>
                     </motion.div>

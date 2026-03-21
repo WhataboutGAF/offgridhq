@@ -25,22 +25,22 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
         <div className="space-y-4 max-w-2xl group/header">
           <div className="flex items-center gap-2 text-primary font-black text-xs tracking-[0.3em] uppercase">
             <Hash className="w-4 h-4" />
-            THE ARCHIVE
+            OUR ARTICLES
           </div>
           <motion.h1 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] text-foreground transition-all duration-500 hover:tracking-normal cursor-default"
           >
-            OFFGRID <span className="italic text-secondary">DISPATCHES_</span>
+            OFFGRID <span className="italic text-secondary">BLOG_</span>
           </motion.h1>
           <p className="text-sm md:text-base font-bold text-foreground/60 uppercase tracking-widest max-w-md leading-relaxed">
              Mapping the technical infrastructure of the future. Architectural logs and creative signals.
           </p>
         </div>
         <div className="hidden md:block text-right space-y-1">
-           <div className="text-[10px] font-black opacity-30 uppercase tracking-[0.5em]">STATUS: STREAMING</div>
-           <div className="text-[10px] font-black opacity-30 uppercase tracking-[0.5em]">ACTIVE_NODES: {posts.length}</div>
+           <div className="text-[10px] font-black opacity-30 uppercase tracking-[0.5em]">STATUS: ONLINE</div>
+           <div className="text-[10px] font-black opacity-30 uppercase tracking-[0.5em]">TOTAL POSTS: {posts.length}</div>
         </div>
       </div>
 
@@ -87,7 +87,7 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
 
                   <div className="pt-4 flex items-center justify-between">
                     <span className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 group-hover/post:translate-x-2 transition-transform duration-300">
-                      READ DISPATCH <ArrowRight className="w-4 h-4 text-primary" />
+                      READ MORE <ArrowRight className="w-4 h-4 text-primary" />
                     </span>
                     <div className="w-10 h-10 rounded-full border-[2.5px] border-foreground flex items-center justify-center group-hover/post:bg-foreground group-hover/post:text-background transition-colors duration-300">
                       <ChevronRight className="w-5 h-5" />
@@ -102,7 +102,7 @@ export default function BlogClient({ posts }: { posts: Post[] }) {
 
       {posts.length === 0 && (
         <div className="py-20 text-center space-y-6">
-          <h2 className="text-3xl font-black uppercase tracking-tight text-foreground opacity-20">NO_DISPATCHES_FOUND</h2>
+          <h2 className="text-3xl font-black uppercase tracking-tight text-foreground opacity-20">NO_POSTS_FOUND</h2>
           <p className="text-sm font-bold opacity-30 uppercase tracking-[0.3em]">Our lab is currently silent. Active engineering in progress.</p>
         </div>
       )}

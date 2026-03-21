@@ -61,7 +61,7 @@ export default function CustomCursor() {
       {!isMobile && (
         <>
       <motion.div
-        className="fixed top-0 left-0 z-[10000] pointer-events-none hidden md:block"
+        className="fixed top-0 left-0 z-[99999] pointer-events-none hidden md:block"
         style={{
           x: smoothX,
           y: smoothY,
@@ -100,7 +100,7 @@ export default function CustomCursor() {
 
       {/* Trailing Signal: Subtle shadow box */}
       <motion.div
-        className="fixed top-0 left-0 w-12 h-12 border border-foreground/5 z-[9999] pointer-events-none hidden md:block"
+        className="fixed top-0 left-0 w-12 h-12 border border-foreground/5 z-[99998] pointer-events-none hidden md:block"
         style={{
           x: trailX,
           y: trailY,

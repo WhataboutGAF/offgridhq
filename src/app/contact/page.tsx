@@ -98,7 +98,7 @@ export default function ContactPage() {
     
     // Final check for bots
     if (!turnstileToken) {
-      alert("SIGNAL_FLAG: VERIFICATION_ENTITY_NOT_FOUND. PLEASE COMPLETE THE SENTINEL CHECK.");
+      alert("Please verify you are human to send a message.");
       return;
     }
 
@@ -167,7 +167,7 @@ export default function ContactPage() {
             <span className="inline-block text-primary underline decoration-[8px] underline-offset-8 transition-transform duration-500 hover:scale-110 hover:rotate-3">US!</span>
           </h1>
           <p className="text-xs md:text-sm font-bold text-foreground/60 uppercase tracking-[0.3em] transition-all duration-500 group-hover/h1:tracking-[0.4em] group-hover/h1:text-foreground">
-            Drop a signal and we’ll sync with you shortly!
+            Send us a message and we'll get back to you soon!
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
                     <Send className="w-8 h-8 md:w-10 md:h-10" />
                   </div>
-                  <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">SIGNAL_DELIVERED</h2>
+                  <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">MESSAGE SENT</h2>
                   <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[300px] leading-relaxed">
                     Your mission dispatch has been successfully broadcasted across the grid. We will sync with you shortly.
                   </p>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                     onClick={() => setFormStatus('idle')}
                     className="bg-white text-[#4FA4D7] px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                   >
-                    SEND ANOTHER SIGNAL
+                    SEND ANOTHER MESSAGE
                   </button>
                 </motion.div>
               ) : formStatus === 'rate-limit' ? (
@@ -211,10 +211,10 @@ export default function ContactPage() {
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-red-200 flex items-center justify-center animate-pulse">
                     <div className="font-black text-2xl md:text-3xl">!</div>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">UPLINK_QUOTA_EXCEEDED</h2>
+                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">SEND LIMIT REACHED</h2>
                   <div className="space-y-4">
                     <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[320px] leading-relaxed">
-                      You've hit the dispatch limit (3 signals per 72H). Uplink will recalibrate shortly.
+                      You've hit the message limit (3 messages per 72H). Please try again later.
                     </p>
                     <a 
                       href={gmailUrl}
@@ -235,7 +235,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-red-200 flex items-center justify-center animate-pulse">
                     <div className="font-black text-2xl md:text-3xl">!</div>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">SIGNAL_INTERRUPTED</h2>
+                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-red-100">MESSAGE FAILED</h2>
                   <div className="space-y-4">
                     <p className="text-[11px] md:text-sm font-bold opacity-80 uppercase tracking-widest max-w-[320px] leading-relaxed">
                       Transmission failed. Check your uplink ID or <a href={`mailto:${DIRECT_EMAIL}`} className="underline">send via direct email signal</a>.
@@ -244,7 +244,7 @@ export default function ContactPage() {
                       onClick={() => setFormStatus('idle')}
                       className="bg-white text-[#4FA4D7] px-8 py-3 rounded-full text-[10px] md:text-xs font-black uppercase shadow-[4px_4px_0_0_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
                     >
-                      RETRY DISPATCH
+                      RETRY SENDING
                     </button>
                   </div>
                 </motion.div>
@@ -256,12 +256,12 @@ export default function ContactPage() {
                     transition={{ duration: 0.5 }}
                     className="text-lg md:text-2xl font-black text-white mb-6 md:mb-4 text-center uppercase tracking-tight drop-shadow-sm transition-transform duration-500 group-hover/form:scale-105"
                   >
-                    MISSION INQUIRY FORM
+                    CONTACT FORM
                   </motion.h2>
                   
                   <form className="space-y-4 md:space-y-2" onSubmit={handleSubmit}>
                     <div className="space-y-2 md:space-y-1">
-                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">YOUR ALIAS / NAME</label>
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">YOUR NAME</label>
                       <input 
                         name="alias"
                         required
@@ -272,7 +272,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2 md:space-y-1 hidden md:block">
-                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">COMMUNICATION FREQUENCY (PHONE)</label>
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">PHONE NUMBER</label>
                       <input 
                         name="phone"
                         type="text" 
@@ -282,7 +282,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2 md:space-y-1">
-                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">DIGITAL UPLINK (EMAIL)</label>
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">EMAIL ADDRESS</label>
                       <input 
                         name="email"
                         required
@@ -293,7 +293,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2 md:space-y-1">
-                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">THE BROADCAST (MESSAGE)</label>
+                      <label className="text-[10px] md:text-[10px] font-black text-white/90 uppercase tracking-widest pl-4">YOUR MESSAGE</label>
                       <textarea 
                         name="message"
                         required
@@ -324,7 +324,7 @@ export default function ContactPage() {
                         disabled={formStatus === 'submitting'}
                         className="bg-[#E97332] text-white px-10 py-4 rounded-2xl border-[3.5px] border-foreground font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:bg-[#ff8a4d] transition-all shadow-[6px_6px_0_0_currentColor] active:translate-y-1 active:shadow-none flex items-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {formStatus === 'submitting' ? "SYNCING..." : "DISPATCH"} 
+                        {formStatus === 'submitting' ? "SENDING..." : "SEND MESSAGE"} 
                         <Send className={cn("w-4 h-4 group-hover:translate-x-1 transition-transform", formStatus === 'submitting' && "animate-pulse")} />
                       </button>
                     </motion.div>
@@ -341,7 +341,7 @@ export default function ContactPage() {
           
           {/* Column 1: Info (Hidden on Mobile to reduce clutter) */}
           <div className="hidden lg:flex flex-col space-y-6">
-            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">SECTION: ARCHIVE</div>
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">QUICK LINKS</div>
             <div className="space-y-3">
               <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">Our Mission</Link>
               <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">The Lab Blog</Link>
@@ -351,7 +351,7 @@ export default function ContactPage() {
 
           {/* Column 2: Contacts */}
           <div className="space-y-8">
-            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest text-foreground select-none cursor-default opacity-80">SECTION: UPLINKS</div>
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest text-foreground select-none cursor-default opacity-80">CONNECT WITH US</div>
             
             <div className="grid grid-cols-2 gap-4">
               <a href={gmailUrl} target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#E97332] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group">
@@ -371,7 +371,7 @@ export default function ContactPage() {
 
           {/* Column 3: Location Map Graphic */}
           <div className="space-y-6">
-            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">SECTION: COORDINATES</div>
+            <div className="border-[2.5px] border-foreground p-3 rounded-xl bg-card/30 text-center font-black uppercase text-[10px] tracking-widest select-none cursor-default opacity-80">OUR LOCATION</div>
             
             <a 
               href="https://www.google.com/maps/search/St.+Petersburg,+FL" 
@@ -383,7 +383,7 @@ export default function ContactPage() {
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
                 <MapPin className="w-12 h-12 text-primary drop-shadow-[0_0_10px_rgba(0,0,0,0.1)] group-hover:scale-125 group-hover:-translate-y-2 transition-all duration-500 animate-bounce" />
                 <div className="mt-4 text-center">
-                  <p className="text-[10px] font-black uppercase tracking-widest">OFFGRID HQ MAIN</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest">OFFGRID OFFICE</p>
                   <p className="text-[8px] font-black text-foreground/40 uppercase tracking-tighter">DECENTRALIZED NEIGHBORHOOD 12</p>
                 </div>
                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-[8px] font-black uppercase bg-foreground text-background px-3 py-1 rounded-full">
