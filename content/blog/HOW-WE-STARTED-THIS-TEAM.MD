@@ -4,7 +4,7 @@ date: "2026-03-19"
 excerpt: "We are a group of friends who decided to make random things. We are passionate about technology and innovation, and we believe that we can make a difference in the world."
 author: "OFFGRID HQ"
 category: "ABOUT US"
-image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop"
+image: "https://as1.ftcdn.net/jpg/14/69/40/48/1000_F_1469404881_xRp8sZUWI3IwpXBJsSQY2PjkpqUVnH91.jpg"
 ---
 
 # THE ORIGIN SIGNAL
