@@ -35,11 +35,9 @@ export default function Projects() {
         {/* Header Row */}
         <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-8">
           <h2 className="text-4xl md:text-5xl font-black text-primary tracking-tight uppercase">
-            Our Projects
+            Our Top Projects
           </h2>
-          <p className="max-w-xs text-foreground/70 dark:text-foreground/60 text-sm md:text-base font-medium leading-tight md:text-right">
-            Here&apos;s our range of projects that showcase our tools and capabilities.
-          </p>
+
         </div>
 
         {/* Project Cards Grid */}

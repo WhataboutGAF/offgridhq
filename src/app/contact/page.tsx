@@ -396,10 +396,7 @@ export default function ContactPage() {
               </div>
             </a>
 
-            <div className="flex flex-col gap-1 text-right">
-              <p className="text-[10px] font-black uppercase tracking-tight">St. Petersburg, FL (US Hub)</p>
-              <p className="text-[10px] font-black text-foreground/40 uppercase tracking-widest">Open for Signals: 09:00 — 18:00</p>
-            </div>
+
           </div>
 
         </div>

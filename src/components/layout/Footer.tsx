@@ -73,7 +73,7 @@ export default function Footer() {
           </motion.div>
           <div className="space-y-1">
             <p className="text-xs md:text-sm font-bold opacity-80 leading-relaxed uppercase">Open for signals Monday—Friday.</p>
-            <p className="text-xs md:text-sm font-bold opacity-80 leading-relaxed uppercase">Currently: <span className="text-primary italic animate-ping-slow">TRANSMITTING</span>.</p>
+
           </div>
         </motion.div>
 
