@@ -50,7 +50,7 @@ export default function AboutPage() {
       {/* Team Member Profile Card Segment */}
       <div className="w-full max-w-[1250px] mx-auto px-6 md:px-12 pt-2 md:pt-6 pb-12 md:pb-24 z-20 relative">
          {/* Main Profile Group Wrapper */}
-         <div className="w-full bg-card rounded-[40px] flex flex-col lg:flex-row h-auto lg:h-[520px] overflow-hidden border-[3.5px] border-foreground shadow-[12px_12px_0_0_currentColor] transition-all duration-500 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_currentColor] group/profile cursor-default text-foreground">
+         <div className="w-full bg-card rounded-[40px] flex flex-col lg:flex-row h-auto lg:h-[520px] overflow-hidden border-[3.5px] border-foreground shadow-[12px_12px_0_0_currentColor] transition-all duration-500 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_currentColor] group/profile text-foreground">
             
             {/* Left Side (The Bio) */}
             <div className="w-full lg:w-[45%] p-6 md:p-12 lg:p-14 flex flex-col justify-center relative overflow-y-auto no-scrollbar z-10 transition-transform duration-500 group-hover/profile:translate-x-1">
@@ -70,36 +70,36 @@ export default function AboutPage() {
                {/* Clean Monospace Typography */}
                <div className="font-space text-[12px] md:text-[14px] font-bold text-foreground leading-[1.7] space-y-6 lg:max-w-[450px]">
                   <p>
-                     I'm <span className="text-[#3F5B59] font-extrabold text-[1.1em] px-1 bg-[#D4E751] transition-colors duration-500 group-hover/profile:bg-[#E63946] group-hover/profile:text-[#FFF9EB]">Yunis</span>, an infrastructure-focused backend developer obsessed with high-uptime servers, dark roast coffee, and building bulletproof architectural experiences.
+                     We're <span className="text-[#3F5B59] font-extrabold text-[1.1em] px-1 bg-[#D4E751] transition-colors duration-500 group-hover/profile:bg-[#E63946] group-hover/profile:text-[#FFF9EB]">OFFGRID HQ</span>, an infrastructure-focused team obsessed with high-uptime servers, dark roast coffee, and building bulletproof architectural experiences.
                   </p>
                   <p className="hidden md:block transition-transform duration-500 delay-75 group-hover/profile:translate-x-2">
-                     I consider myself a robust architect—a detail-oriented, hardworking engineer who's willing to push to production at every step of the way.
+                     We consider ourselves robust architects—a detail-oriented, hardworking team that's willing to push to production at every step of the way.
                   </p>
                </div>
 
                {/* Vertical Sub-Stack of Social Icons with Zine Pop Colors */}
-               <div className="mt-8 flex flex-col gap-4 font-space text-[12px] md:text-[13px] text-foreground font-bold pb-2">
-                  <div className="flex items-center gap-4 group">
-                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#E63946] text-white flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform cursor-pointer shadow-[2px_2px_0_0_currentColor]">
+               <div className="mt-8 flex flex-col gap-4 font-space text-[12px] md:text-[13px] text-foreground font-bold pb-2 relative z-50">
+                  <a href="/contact" className="flex items-center gap-4 group cursor-pointer pointer-events-auto">
+                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#E63946] text-white flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform shadow-[2px_2px_0_0_currentColor]">
                         {/* Email Envelope */}
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
                      </div>
-                     <span className="cursor-pointer group-hover:underline">yunis@offgridhq.com</span>
-                  </div>
-                  <div className="flex items-center gap-4 group">
-                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#3F5B59] text-white flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform cursor-pointer shadow-[2px_2px_0_0_currentColor]">
-                        {/* Custom GitHub / Behance representation */}
-                        <span className="font-bowlby text-[13px] leading-none mb-[1px]">Be</span>
+                     <span className="group-hover:underline">offgridhqteam@gmail.com</span>
+                  </a>
+                  <a href="https://github.com/offgridhq" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group cursor-pointer pointer-events-auto">
+                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#3F5B59] text-white flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform shadow-[2px_2px_0_0_currentColor]">
+                        {/* Custom GitHub / GH representation */}
+                        <span className="font-bowlby text-[13px] leading-none mb-[1px]">GH</span>
                      </div>
-                     <span className="cursor-pointer group-hover:underline">github.com/yunis</span>
-                  </div>
-                  <div className="flex items-center gap-4 group">
-                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#D4E751] text-black flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform cursor-pointer shadow-[2px_2px_0_0_currentColor]">
+                     <span className="group-hover:underline">github.com/offgridhq</span>
+                  </a>
+                  <a href="https://linkedin.com/company/offgridhq" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group cursor-pointer pointer-events-auto">
+                     <div className="w-8 h-8 shrink-0 rounded-full bg-[#D4E751] text-black flex items-center justify-center border-[2.5px] border-foreground group-hover:-translate-y-1 transition-transform shadow-[2px_2px_0_0_currentColor]">
                         {/* LinkedIn "in" */}
                         <span className="font-bowlby text-[11px] leading-none font-bold italic mb-[1px]">in</span>
                      </div>
-                     <span className="cursor-pointer group-hover:underline">linkedin.com/in/yunis</span>
-                  </div>
+                     <span className="group-hover:underline">linkedin.com/company/offgridhq</span>
+                  </a>
                </div>
             </div>
 

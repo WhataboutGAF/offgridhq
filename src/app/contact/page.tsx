@@ -345,7 +345,7 @@ export default function ContactPage() {
             <div className="space-y-3">
               <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">Our Mission</Link>
               <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">The Lab Blog</Link>
-              <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">About Yunis</Link>
+              <Link href="/about" className="block w-full bg-[#A855F7] text-white py-3 rounded-2xl border-[2.5px] border-foreground font-bold shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all text-xs uppercase tracking-widest active:translate-y-0 active:shadow-none text-center">About OFFGRID HQ</Link>
             </div>
           </div>
 
@@ -357,13 +357,13 @@ export default function ContactPage() {
               <a href={gmailUrl} target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#E97332] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group">
                 <Mail className="w-8 h-8 group-hover:scale-110 transition-transform" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#4FA4D7] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
+              <a href="https://twitter.com/offgridhq" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#4FA4D7] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
                 <Twitter className="w-8 h-8 group-hover:scale-110 transition-transform" />
               </a>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#25D366] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all cursor-pointer group active:scale-95">
                 <WhatsAppIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
               </a>
-              <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#0088cc] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
+              <a href="https://t.me/offgridhq" target="_blank" rel="noopener noreferrer" className="aspect-square bg-[#0088cc] rounded-full border-[2.5px] border-foreground flex items-center justify-center text-white shadow-[4px_4px_0_0_currentColor] hover:-translate-y-1 hover:shadow-[6px_6px_0_0_currentColor] transition-all group active:scale-95">
                 <TelegramIcon className="w-8 h-8 group-hover:scale-110 transition-transform" />
               </a>
             </div>
