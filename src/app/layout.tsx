@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   keywords: ['Offgrid HQ', 'Web Development', 'UI/UX Design', 'Backend Infrastructure', 'Next.js 15', 'Premium Web Experience'],
   metadataBase: new URL(baseUrl),
   icons: {
-    icon: '/Grid.svg',
-    shortcut: '/Grid.svg',
-    apple: '/Grid.svg',
+    icon: '/logo.webp',
+    shortcut: '/logo.webp',
+    apple: '/logo.webp',
   },
   openGraph: {
     title: 'OFFGRID HQ | Level Up Your Internet',

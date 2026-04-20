@@ -42,7 +42,7 @@
     "logoFile": "ghosty.png",
     "themeColor": "#00FFD1",
     "shadowColor": "#7000FF",
-    "projectUrl": "https://ghosty-app.vercel.app/",
+    "projectUrl": "https://ghostyme.com/",
     "launchDate": "Q2 2026",
     "liveStatus": "BETA",
     "techStack": ["React", "Socket.io", "Node.js", "OTHER"]
